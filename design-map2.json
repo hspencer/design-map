@@ -1,0 +1,455 @@
+{
+    "nodes": [
+        {
+            "id": "Diseño Visual y Comunicación",
+            "group": 4
+        },
+        {
+            "id": "Comunicación Visual",
+            "group": 4
+        },
+        {
+            "id": "Tipografía",
+            "group": 4
+        },
+        {
+            "id": "Señalética y Diseño Wayfinding",
+            "group": 2
+        },
+        {
+            "id": "Diseño de Interacción y Experiencia de Usuario",
+            "group": 4
+        },
+        {
+            "id": "Arquitectura de la Información",
+            "group": 3
+        },
+        {
+            "id": "Diseño Centrado en las Personas",
+            "group": 3
+        },
+        {
+            "id": "Diseño de Interfaces",
+            "group": 2
+        },
+        {
+            "id": "Partituras de Interacción",
+            "group": 1
+        },
+        {
+            "id": "Diseño de Juegos",
+            "group": 2
+        },
+        {
+            "id": "Programación Creativa",
+            "group": 3
+        },
+        {
+            "id": "Shaders y Gráficos en Tiempo Real",
+            "group": 3
+        },
+        {
+            "id": "Machine Learning Aplicado al Diseño",
+            "group": 3
+        },
+        {
+            "id": "Realidad Virtual y Aumentada",
+            "group": 3
+        },
+        {
+            "id": "Diseño Industrial y Producto",
+            "group": 4
+        },
+        {
+            "id": "Diseño Efímero y de Celebración",
+            "group": 4
+        },
+        {
+            "id": "Fabricación Digital",
+            "group": 4
+        },
+        {
+            "id": "Robótica y Arduino",
+            "group": 4
+        },
+        {
+            "id": "Modelado y Dibujo 3D",
+            "group": 4
+        },
+        {
+            "id": "Diseño Social y Sostenible",
+            "group": 5
+        },
+        {
+            "id": "Diseño para la Inclusión",
+            "group": 5
+        },
+        {
+            "id": "Diseño Sostenible",
+            "group": 5
+        },
+        {
+            "id": "Metodologías y Procesos de Diseño",
+            "group": 6
+        },
+        {
+            "id": "Diseño de Sistemas",
+            "group": 6
+        },
+        {
+            "id": "Diseño Participativo",
+            "group": 6
+        },
+        {
+            "id": "Historia y Teoría del Diseño",
+            "group": 7
+        },
+        {
+            "id": "Historia del Diseño",
+            "group": 7
+        },
+        {
+            "id": "Crítica del Diseño",
+            "group": 7
+        },
+        {
+            "id": "Estudios Culturales del Diseño",
+            "group": 7
+        },
+        {
+            "id": "Matemáticas",
+            "group": 8
+        },
+        {
+            "id": "Métodos de Diseño",
+            "group": 9
+        },
+        {
+            "id": "Fundamentos Históricos",
+            "group": 10
+        },
+        {
+            "id": "Disponibilidad Espiritual",
+            "group": 11
+        },
+        {
+            "id": "Poesía del 'Ha Lugar'",
+            "group": 12
+        },
+        {
+            "id": "Empresa Poiética",
+            "group": 13
+        },
+        {
+            "id": "Observación",
+            "group": 14
+        },
+        {
+            "id": "Estética",
+            "group": 15
+        },
+        {
+            "id": "Ética del Diseño",
+            "group": 16
+        },
+        {
+            "id": "Interdisciplinariedad",
+            "group": 17
+        },
+        {
+            "id": "Diseño de Servicios",
+            "group": 18
+        },
+        {
+            "id": "Diseño de Microhabitabilidad",
+            "group": 19
+        }
+    ],
+    "links": [
+        {
+            "source": "Diseño Visual y Comunicación",
+            "target": "Comunicación Visual",
+            "value": 1
+        },
+        {
+            "source": "Diseño Visual y Comunicación",
+            "target": "Tipografía",
+            "value": 1
+        },
+        {
+            "source": "Diseño Visual y Comunicación",
+            "target": "Señalética y Diseño Wayfinding",
+            "value": 1
+        },
+        {
+            "source": "Diseño de Interacción y Experiencia de Usuario",
+            "target": "Arquitectura de la Información",
+            "value": 1
+        },
+        {
+            "source": "Diseño de Interacción y Experiencia de Usuario",
+            "target": "Diseño Centrado en las Personas",
+            "value": 1
+        },
+        {
+            "source": "Diseño de Interacción y Experiencia de Usuario",
+            "target": "Diseño de Interfaces",
+            "value": 1
+        },
+        {
+            "source": "Diseño de Interacción y Experiencia de Usuario",
+            "target": "Partituras de Interacción",
+            "value": 1
+        },
+        {
+            "source": "Diseño de Interacción y Experiencia de Usuario",
+            "target": "Diseño de Juegos",
+            "value": 1
+        },
+        {
+            "source": "Robótica y Arduino",
+            "target": "Programación Creativa",
+            "value": 1
+        },
+        {
+            "source": "Matemáticas",
+            "target": "Shaders y Gráficos en Tiempo Real",
+            "value": 1
+        },
+        {
+            "source": "Matemáticas",
+            "target": "Machine Learning Aplicado al Diseño",
+            "value": 1
+        },
+        {
+            "source": "Diseño de Interacción y Experiencia de Usuario",
+            "target": "Realidad Virtual y Aumentada",
+            "value": 1
+        },
+        {
+            "source": "Diseño Industrial y Producto",
+            "target": "Diseño Efímero y de Celebración",
+            "value": 1
+        },
+        {
+            "source": "Diseño Industrial y Producto",
+            "target": "Fabricación Digital",
+            "value": 1
+        },
+        {
+            "source": "Diseño Industrial y Producto",
+            "target": "Robótica y Arduino",
+            "value": 1
+        },
+        {
+            "source": "Diseño Industrial y Producto",
+            "target": "Modelado y Dibujo 3D",
+            "value": 1
+        },
+        {
+            "source": "Diseño Social y Sostenible",
+            "target": "Diseño para la Inclusión",
+            "value": 1
+        },
+        {
+            "source": "Diseño Social y Sostenible",
+            "target": "Diseño Sostenible",
+            "value": 1
+        },
+        {
+            "source": "Metodologías y Procesos de Diseño",
+            "target": "Diseño de Sistemas",
+            "value": 1
+        },
+        {
+            "source": "Metodologías y Procesos de Diseño",
+            "target": "Diseño Centrado en las Personas",
+            "value": 1
+        },
+        {
+            "source": "Metodologías y Procesos de Diseño",
+            "target": "Diseño Participativo",
+            "value": 1
+        },
+        {
+            "source": "Historia y Teoría del Diseño",
+            "target": "Historia del Diseño",
+            "value": 1
+        },
+        {
+            "source": "Historia y Teoría del Diseño",
+            "target": "Crítica del Diseño",
+            "value": 1
+        },
+        {
+            "source": "Historia y Teoría del Diseño",
+            "target": "Estudios Culturales del Diseño",
+            "value": 1
+        },
+        {
+            "source": "Tipografía",
+            "target": "Diseño de Interfaces",
+            "value": 2
+        },
+        {
+            "source": "Historia del Diseño",
+            "target": "Fundamentos Históricos",
+            "value": 2
+        },
+        {
+            "source": "Diseño de Sistemas",
+            "target": "Métodos de Diseño",
+            "value": 2
+        },
+        {
+            "source": "Programación Creativa",
+            "target": "Matemáticas",
+            "value": 2
+        },
+        {
+            "source": "Modelado y Dibujo 3D",
+            "target": "Matemáticas",
+            "value": 2
+        },
+        {
+            "source": "Matemáticas",
+            "target": "Shaders y Gráficos en Tiempo Real",
+            "value": 2
+        },
+        {
+            "source": "Matemáticas",
+            "target": "Diseño de Juegos",
+            "value": 2
+        },
+        {
+            "source": "Disponibilidad Espiritual",
+            "target": "Comunicación Visual",
+            "value": 3
+        },
+        {
+            "source": "Disponibilidad Espiritual",
+            "target": "Diseño de Interfaces",
+            "value": 3
+        },
+        {
+            "source": "Poesía del 'Ha Lugar'",
+            "target": "Diseño Efímero y de Celebración",
+            "value": 3
+        },
+        {
+            "source": "Poesía del 'Ha Lugar'",
+            "target": "Diseño para la Inclusión",
+            "value": 3
+        },
+        {
+            "source": "Empresa Poiética",
+            "target": "Diseño de Juegos",
+            "value": 3
+        },
+        {
+            "source": "Empresa Poiética",
+            "target": "Diseño Sostenible",
+            "value": 3
+        },
+        {
+            "source": "Observación",
+            "target": "Programación Creativa",
+            "value": 3
+        },
+        {
+            "source": "Estética",
+            "target": "Diseño Visual y Comunicación",
+            "value": 3
+        },
+        {
+            "source": "Estética",
+            "target": "Diseño Industrial y Producto",
+            "value": 3
+        },
+        {
+            "source": "Ética del Diseño",
+            "target": "Diseño Social y Sostenible",
+            "value": 3
+        },
+        {
+            "source": "Ética del Diseño",
+            "target": "Historia y Teoría del Diseño",
+            "value": 3
+        },
+        {
+            "source": "Interdisciplinariedad",
+            "target": "Robótica y Arduino",
+            "value": 3
+        },
+        {
+            "source": "Interdisciplinariedad",
+            "target": "Metodologías y Procesos de Diseño",
+            "value": 3
+        },
+        {
+            "source": "Diseño de Servicios",
+            "target": "Diseño de Sistemas",
+            "value": 4
+        },
+        {
+            "source": "Diseño de Microhabitabilidad",
+            "target": "Diseño Industrial y Producto",
+            "value": 4
+        },
+        {
+            "source": "Diseño de Microhabitabilidad",
+            "target": "Diseño para la Inclusión",
+            "value": 4
+        },
+        {
+            "source": "Fabricación Digital",
+            "target": "Diseño Efímero y de Celebración",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Diseño Efímero y de Celebración",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Empresa Poiética",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Diseño Visual y Comunicación",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Diseño de Juegos",
+            "value": 4
+        },
+        {
+            "source": "Historia y Teoría del Diseño",
+            "target": "Estética",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Diseño de Interacción y Experiencia de Usuario",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Diseño de Microhabitabilidad",
+            "value": 4
+        },
+        {
+            "source": "Observación",
+            "target": "Disponibilidad Espiritual",
+            "value": 4
+        },
+        {
+            "source": "Empresa Poiética",
+            "target": "Disponibilidad Espiritual",
+            "value": 4
+        }
+    ]
+}
