@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Mapa del Espacio del Diseño</title>
+    <meta name="author" content="Herbert Spencer">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
@@ -62,7 +63,7 @@
             .attr("height", window.innerHeight);
 
         // Cargar el archivo JSON con la información del mapa conceptual
-        d3.json("design-map2.json").then(function(graph) {
+        d3.json("design-map.json").then(function(graph) {
             // Crear una simulación de fuerzas para los nodos
             const simulation = d3.forceSimulation(graph.nodes)
                 .force("link", d3.forceLink(graph.links).id(d => d.id).distance(linkDistance))
