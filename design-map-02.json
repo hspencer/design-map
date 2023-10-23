@@ -1,0 +1,1590 @@
+{
+    "nodes": [
+        {
+            "id": "3D Rigging",
+            "size": 0
+        },
+        {
+            "id": "Animaci\u00f3n 2D",
+            "size": 2
+        },
+        {
+            "id": "Animaci\u00f3n 3D",
+            "size": 3
+        },
+        {
+            "id": "Arquitectura de la Informaci\u00f3n",
+            "size": 11
+        },
+        {
+            "id": "Arquitectura de Sistemas",
+            "size": 5
+        },
+        {
+            "id": "BIM",
+            "size": 0
+        },
+        {
+            "id": "Cine y Video",
+            "size": 0
+        },
+        {
+            "id": "Color",
+            "size": 0
+        },
+        {
+            "id": "Construcci\u00f3n Formal",
+            "size": 3
+        },
+        {
+            "id": "Dibujo Planim\u00e9trico 2D",
+            "size": 3
+        },
+        {
+            "id": "Dibujo Planim\u00e9trico 3D",
+            "size": 5
+        },
+        {
+            "id": "Dise\u00f1o de Agentes Inteligentes",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Alimentos",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Ambientes Inteligentes",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Dispositivos Inteligentes",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Econom\u00eda Circular",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Editorial Digital",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "size": 4
+        },
+        {
+            "id": "Dise\u00f1o de Interfaces",
+            "size": 4
+        },
+        {
+            "id": "Dise\u00f1o de Interfaces Aurales",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o de Juegos",
+            "size": 3
+        },
+        {
+            "id": "Dise\u00f1o de Juegos de Mesa",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Juegos Digitales",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Juegos Serios",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Microhabitabilidad",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Narrativa Transmedia",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o de Objetos",
+            "size": 3
+        },
+        {
+            "id": "Dise\u00f1o de Personajes",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o de Servicios",
+            "size": 3
+        },
+        {
+            "id": "Dise\u00f1o de Sistemas",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o de Sistemas de Recompensa en Juegos",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o Editorial",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o Ef\u00edmero y de Celebraci\u00f3n",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o Front-End",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o Gr\u00e1fico",
+            "size": 2
+        },
+        {
+            "id": "Dise\u00f1o H\u00e1ptico",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o Inclusivo y Accesibilidad",
+            "size": 1
+        },
+        {
+            "id": "Dise\u00f1o Industrial",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Celebraci\u00f3n",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Educaci\u00f3n",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Microhabitabilidad",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Realidad Aumentada",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Realidad Virtual",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Resiliencia Comunitaria",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Salud y Bienestar",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o para la Sostenibilidad Social",
+            "size": 2
+        },
+        {
+            "id": "Dise\u00f1o para la Transici\u00f3n",
+            "size": 2
+        },
+        {
+            "id": "Dise\u00f1o Param\u00e9trico",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o Participativo",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o UX para dispositivos m\u00f3viles",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o UX para IA",
+            "size": 0
+        },
+        {
+            "id": "Dise\u00f1o y Empresa",
+            "size": 0
+        },
+        {
+            "id": "EcoDise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "Edici\u00f3n Audiovisual",
+            "size": 0
+        },
+        {
+            "id": "Ergonom\u00eda",
+            "size": 0
+        },
+        {
+            "id": "Estudios Culturales del Dise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "\u00c9tica del Dise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "Fabricaci\u00f3n Digital",
+            "size": 2
+        },
+        {
+            "id": "Filosof\u00eda del Dise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "Fotograf\u00eda",
+            "size": 0
+        },
+        {
+            "id": "Fundamentos de Computaci\u00f3n",
+            "size": 3
+        },
+        {
+            "id": "Fundamentos de Econom\u00eda",
+            "size": 0
+        },
+        {
+            "id": "Fundamentos de Electr\u00f3nica",
+            "size": 0
+        },
+        {
+            "id": "Fundamentos de Geometr\u00eda",
+            "size": 1
+        },
+        {
+            "id": "Fundamentos de la F\u00edsica",
+            "size": 3
+        },
+        {
+            "id": "Fundamentos de la Qu\u00edmica",
+            "size": 1
+        },
+        {
+            "id": "Fundamentos de la Sicolog\u00eda",
+            "size": 3
+        },
+        {
+            "id": "Fundamentos de las Matem\u00e1ticas",
+            "size": 7
+        },
+        {
+            "id": "Fundamentos de los Materiales",
+            "size": 1
+        },
+        {
+            "id": "Gui\u00f3n Audiovisual (Storyboards)",
+            "size": 0
+        },
+        {
+            "id": "Historia del Dise\u00f1o",
+            "size": 2
+        },
+        {
+            "id": "Iluminaci\u00f3n",
+            "size": 1
+        },
+        {
+            "id": "Ilustraci\u00f3n",
+            "size": 1
+        },
+        {
+            "id": "Machine Learning Aplicado al Dise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "M\u00e9todos de Codise\u00f1o",
+            "size": 1
+        },
+        {
+            "id": "M\u00e9todos de Dise\u00f1o",
+            "size": 2
+        },
+        {
+            "id": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas",
+            "size": 3
+        },
+        {
+            "id": "M\u00e9todos Exploratorios",
+            "size": 0
+        },
+        {
+            "id": "M\u00e9todos Generativos",
+            "size": 0
+        },
+        {
+            "id": "Modelado Org\u00e1nico 3D",
+            "size": 1
+        },
+        {
+            "id": "Museograf\u00eda (Espacios Expositivos)",
+            "size": 0
+        },
+        {
+            "id": "Narratolog\u00eda y construcci\u00f3n de discurso",
+            "size": 1
+        },
+        {
+            "id": "Observaci\u00f3n",
+            "size": 0
+        },
+        {
+            "id": "Programaci\u00f3n Creativa",
+            "size": 1
+        },
+        {
+            "id": "Prototipado VR",
+            "size": 0
+        },
+        {
+            "id": "Rob\u00f3tica y Arduino",
+            "size": 0
+        },
+        {
+            "id": "Se\u00f1al\u00e9tica y Dise\u00f1o Wayfinding",
+            "size": 0
+        },
+        {
+            "id": "Shaders y Gr\u00e1ficos en Tiempo Real",
+            "size": 0
+        },
+        {
+            "id": "Sistemas de Impresi\u00f3n",
+            "size": 0
+        },
+        {
+            "id": "Sistemas de Producci\u00f3n Masiva",
+            "size": 0
+        },
+        {
+            "id": "Teor\u00eda Cr\u00edtica del Dise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "Teor\u00eda del Dise\u00f1o",
+            "size": 0
+        },
+        {
+            "id": "Tipograf\u00eda",
+            "size": 0
+        },
+        {
+            "id": "Usabilidad",
+            "size": 0
+        }
+    ],
+    "links": [
+        {
+            "source": "3D Rigging",
+            "target": "Dise\u00f1o de Juegos Digitales"
+        },
+        {
+            "source": "3D Rigging",
+            "target": "Dise\u00f1o de Personajes"
+        },
+        {
+            "source": "3D Rigging",
+            "target": "Animaci\u00f3n 3D"
+        },
+        {
+            "source": "3D Rigging",
+            "target": "Modelado Org\u00e1nico 3D"
+        },
+        {
+            "source": "Animaci\u00f3n 2D",
+            "target": "Ilustraci\u00f3n"
+        },
+        {
+            "source": "Animaci\u00f3n 2D",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Animaci\u00f3n 2D",
+            "target": "Gui\u00f3n Audiovisual (Storyboards)"
+        },
+        {
+            "source": "Animaci\u00f3n 3D",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Animaci\u00f3n 3D",
+            "target": "Gui\u00f3n Audiovisual (Storyboards)"
+        },
+        {
+            "source": "Animaci\u00f3n 3D",
+            "target": "Animaci\u00f3n 2D"
+        },
+        {
+            "source": "Arquitectura de la Informaci\u00f3n",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Arquitectura de la Informaci\u00f3n",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Arquitectura de la Informaci\u00f3n",
+            "target": "Se\u00f1al\u00e9tica y Dise\u00f1o Wayfinding"
+        },
+        {
+            "source": "Arquitectura de Sistemas",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Arquitectura de Sistemas",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "BIM",
+            "target": "Dibujo Planim\u00e9trico 2D"
+        },
+        {
+            "source": "BIM",
+            "target": "Dibujo Planim\u00e9trico 3D"
+        },
+        {
+            "source": "BIM",
+            "target": "Dise\u00f1o Param\u00e9trico"
+        },
+        {
+            "source": "Cine y Video",
+            "target": "Fotograf\u00eda"
+        },
+        {
+            "source": "Cine y Video",
+            "target": "Iluminaci\u00f3n"
+        },
+        {
+            "source": "Cine y Video",
+            "target": "Gui\u00f3n Audiovisual (Storyboards)"
+        },
+        {
+            "source": "Cine y Video",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Color",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Color",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Color",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Construcci\u00f3n Formal",
+            "target": "Fundamentos de Geometr\u00eda"
+        },
+        {
+            "source": "Construcci\u00f3n Formal",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Construcci\u00f3n Formal",
+            "target": "Fundamentos de los Materiales"
+        },
+        {
+            "source": "Dibujo Planim\u00e9trico 2D",
+            "target": "Construcci\u00f3n Formal"
+        },
+        {
+            "source": "Dibujo Planim\u00e9trico 2D",
+            "target": "Fundamentos de Geometr\u00eda"
+        },
+        {
+            "source": "Dibujo Planim\u00e9trico 3D",
+            "target": "Construcci\u00f3n Formal"
+        },
+        {
+            "source": "Dibujo Planim\u00e9trico 3D",
+            "target": "Dibujo Planim\u00e9trico 2D"
+        },
+        {
+            "source": "Dise\u00f1o de Agentes Inteligentes",
+            "target": "Dise\u00f1o UX para IA"
+        },
+        {
+            "source": "Dise\u00f1o de Agentes Inteligentes",
+            "target": "Dise\u00f1o de Interfaces Aurales"
+        },
+        {
+            "source": "Dise\u00f1o de Agentes Inteligentes",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Alimentos",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Alimentos",
+            "target": "Fundamentos de la Qu\u00edmica"
+        },
+        {
+            "source": "Dise\u00f1o de Alimentos",
+            "target": "Dise\u00f1o para la Celebraci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Ambientes Inteligentes",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Ambientes Inteligentes",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Ambientes Inteligentes",
+            "target": "Dise\u00f1o de Interfaces Aurales"
+        },
+        {
+            "source": "Dise\u00f1o de Ambientes Inteligentes",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Dise\u00f1o de Dispositivos Inteligentes",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Dispositivos Inteligentes",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Dispositivos Inteligentes",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "Dise\u00f1o de Dispositivos Inteligentes",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Dise\u00f1o de Dispositivos Inteligentes",
+            "target": "Dise\u00f1o de Informaci\u00f3n (Infoviz)"
+        },
+        {
+            "source": "Dise\u00f1o de Econom\u00eda Circular",
+            "target": "Dise\u00f1o para la Sostenibilidad Social"
+        },
+        {
+            "source": "Dise\u00f1o de Econom\u00eda Circular",
+            "target": "Teor\u00eda Cr\u00edtica del Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o de Econom\u00eda Circular",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Econom\u00eda Circular",
+            "target": "Dise\u00f1o para la Transici\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Econom\u00eda Circular",
+            "target": "M\u00e9todos Exploratorios"
+        },
+        {
+            "source": "Dise\u00f1o de Editorial Digital",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Editorial Digital",
+            "target": "Dise\u00f1o Gr\u00e1fico"
+        },
+        {
+            "source": "Dise\u00f1o de Editorial Digital",
+            "target": "Tipograf\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Editorial Digital",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "target": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "target": "M\u00e9todos de Codise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "target": "Dise\u00f1o de Microhabitabilidad"
+        },
+        {
+            "source": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "target": "Dise\u00f1o para la Sostenibilidad Social"
+        },
+        {
+            "source": "Dise\u00f1o de Espacios Urbanos Sostenibles",
+            "target": "Dise\u00f1o Inclusivo y Accesibilidad"
+        },
+        {
+            "source": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "target": "Tipograf\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "target": "Ilustraci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "target": "Fundamentos de Computaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Informaci\u00f3n (Infoviz)",
+            "target": "Programaci\u00f3n Creativa"
+        },
+        {
+            "source": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "target": "Arquitectura de Sistemas"
+        },
+        {
+            "source": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario",
+            "target": "M\u00e9todos Exploratorios"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces",
+            "target": "Tipograf\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces",
+            "target": "Usabilidad"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces",
+            "target": "Dise\u00f1o Inclusivo y Accesibilidad"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces Aurales",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces Aurales",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces Aurales",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces Aurales",
+            "target": "M\u00e9todos de Codise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces Aurales",
+            "target": "Dise\u00f1o Inclusivo y Accesibilidad"
+        },
+        {
+            "source": "Dise\u00f1o de Interfaces Aurales",
+            "target": "Dise\u00f1o UX para IA"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Gui\u00f3n Audiovisual (Storyboards)"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Dise\u00f1o de Sistemas de Recompensa en Juegos"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Dise\u00f1o Gr\u00e1fico"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Dise\u00f1o de Objetos"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos de Mesa",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos de Mesa",
+            "target": "Dise\u00f1o de Juegos"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos de Mesa",
+            "target": "Dise\u00f1o de Objetos"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Digitales",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Digitales",
+            "target": "Dise\u00f1o de Juegos"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Digitales",
+            "target": "Dise\u00f1o de Personajes"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Digitales",
+            "target": "Programaci\u00f3n Creativa"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Digitales",
+            "target": "Animaci\u00f3n 2D"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Digitales",
+            "target": "Animaci\u00f3n 3D"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Serios",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Serios",
+            "target": "Dise\u00f1o para la Educaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Serios",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Serios",
+            "target": "Dise\u00f1o Inclusivo y Accesibilidad"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Serios",
+            "target": "M\u00e9todos Exploratorios"
+        },
+        {
+            "source": "Dise\u00f1o de Juegos Serios",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Dise\u00f1o Industrial"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Dise\u00f1o de Objetos"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Fabricaci\u00f3n Digital"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Dibujo Planim\u00e9trico 3D"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Dibujo Planim\u00e9trico 2D"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Iluminaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Microhabitabilidad",
+            "target": "Ergonom\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Narrativa Transmedia",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Narrativa Transmedia",
+            "target": "Gui\u00f3n Audiovisual (Storyboards)"
+        },
+        {
+            "source": "Dise\u00f1o de Narrativa Transmedia",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Dise\u00f1o de Narrativa Transmedia",
+            "target": "Gui\u00f3n Audiovisual (Storyboards)"
+        },
+        {
+            "source": "Dise\u00f1o de Narrativa Transmedia",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Narrativa Transmedia",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o de Objetos",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Objetos",
+            "target": "M\u00e9todos de Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o de Objetos",
+            "target": "Teor\u00eda del Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o de Objetos",
+            "target": "Ergonom\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o de Personajes",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Personajes",
+            "target": "Modelado Org\u00e1nico 3D"
+        },
+        {
+            "source": "Dise\u00f1o de Personajes",
+            "target": "Animaci\u00f3n 3D"
+        },
+        {
+            "source": "Dise\u00f1o de Servicios",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Servicios",
+            "target": "Arquitectura de Sistemas"
+        },
+        {
+            "source": "Dise\u00f1o de Servicios",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Servicios",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Dise\u00f1o de Servicios",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas",
+            "target": "Dise\u00f1o de Servicios"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas",
+            "target": "Arquitectura de Sistemas"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas",
+            "target": "Dise\u00f1o Front-End"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas de Recompensa en Juegos",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas de Recompensa en Juegos",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o de Sistemas de Recompensa en Juegos",
+            "target": "Dise\u00f1o de Juegos"
+        },
+        {
+            "source": "Dise\u00f1o Editorial",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Editorial",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Editorial",
+            "target": "Dise\u00f1o Gr\u00e1fico"
+        },
+        {
+            "source": "Dise\u00f1o Editorial",
+            "target": "Tipograf\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o Editorial",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Dise\u00f1o Ef\u00edmero y de Celebraci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Ef\u00edmero y de Celebraci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Ef\u00edmero y de Celebraci\u00f3n",
+            "target": "Dise\u00f1o de Objetos"
+        },
+        {
+            "source": "Dise\u00f1o Ef\u00edmero y de Celebraci\u00f3n",
+            "target": "Fabricaci\u00f3n Digital"
+        },
+        {
+            "source": "Dise\u00f1o Front-End",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Front-End",
+            "target": "Arquitectura de Sistemas"
+        },
+        {
+            "source": "Dise\u00f1o Front-End",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "Dise\u00f1o Front-End",
+            "target": "Usabilidad"
+        },
+        {
+            "source": "Dise\u00f1o Front-End",
+            "target": "Dise\u00f1o Inclusivo y Accesibilidad"
+        },
+        {
+            "source": "Dise\u00f1o Gr\u00e1fico",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Gr\u00e1fico",
+            "target": "Animaci\u00f3n 3D"
+        },
+        {
+            "source": "Dise\u00f1o Gr\u00e1fico",
+            "target": "Tipograf\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o Gr\u00e1fico",
+            "target": "Fotograf\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o Gr\u00e1fico",
+            "target": "Dise\u00f1o Editorial"
+        },
+        {
+            "source": "Dise\u00f1o H\u00e1ptico",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o H\u00e1ptico",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "Dise\u00f1o H\u00e1ptico",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Dise\u00f1o H\u00e1ptico",
+            "target": "Fundamentos de los Materiales"
+        },
+        {
+            "source": "Dise\u00f1o H\u00e1ptico",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o Inclusivo y Accesibilidad",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Inclusivo y Accesibilidad",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Inclusivo y Accesibilidad",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o Inclusivo y Accesibilidad",
+            "target": "M\u00e9todos Exploratorios"
+        },
+        {
+            "source": "Dise\u00f1o Inclusivo y Accesibilidad",
+            "target": "Dise\u00f1o Participativo"
+        },
+        {
+            "source": "Dise\u00f1o Industrial",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Industrial",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o Industrial",
+            "target": "Fundamentos de los Materiales"
+        },
+        {
+            "source": "Dise\u00f1o Industrial",
+            "target": "Dise\u00f1o de Objetos"
+        },
+        {
+            "source": "Dise\u00f1o Industrial",
+            "target": "Sistemas de Producci\u00f3n Masiva"
+        },
+        {
+            "source": "Dise\u00f1o para la Celebraci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Celebraci\u00f3n",
+            "target": "Dise\u00f1o Ef\u00edmero y de Celebraci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Celebraci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Educaci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Educaci\u00f3n",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o para la Educaci\u00f3n",
+            "target": "Dise\u00f1o Gr\u00e1fico"
+        },
+        {
+            "source": "Dise\u00f1o para la Educaci\u00f3n",
+            "target": "Dise\u00f1o de Interacci\u00f3n y Experiencia de Usuario"
+        },
+        {
+            "source": "Dise\u00f1o para la Microhabitabilidad",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Microhabitabilidad",
+            "target": "Ergonom\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o para la Microhabitabilidad",
+            "target": "Dise\u00f1o de Objetos"
+        },
+        {
+            "source": "Dise\u00f1o para la Microhabitabilidad",
+            "target": "Iluminaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Microhabitabilidad",
+            "target": "Fundamentos de los Materiales"
+        },
+        {
+            "source": "Dise\u00f1o para la Microhabitabilidad",
+            "target": "Dibujo Planim\u00e9trico 3D"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Aumentada",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Aumentada",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Aumentada",
+            "target": "Dise\u00f1o de Sistemas"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Aumentada",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Virtual",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Virtual",
+            "target": "Programaci\u00f3n Creativa"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Virtual",
+            "target": "Dise\u00f1o Front-End"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Virtual",
+            "target": "Iluminaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Realidad Virtual",
+            "target": "Modelado Org\u00e1nico 3D"
+        },
+        {
+            "source": "Dise\u00f1o para la Resiliencia Comunitaria",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Resiliencia Comunitaria",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o para la Resiliencia Comunitaria",
+            "target": "M\u00e9todos de Codise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o para la Salud y Bienestar",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o para la Salud y Bienestar",
+            "target": "Dise\u00f1o de Servicios"
+        },
+        {
+            "source": "Dise\u00f1o para la Salud y Bienestar",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o para la Sostenibilidad Social",
+            "target": "Teor\u00eda Cr\u00edtica del Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o para la Sostenibilidad Social",
+            "target": "Dise\u00f1o para la Transici\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o para la Sostenibilidad Social",
+            "target": "Teor\u00eda Cr\u00edtica del Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o para la Sostenibilidad Social",
+            "target": "Dise\u00f1o de Servicios"
+        },
+        {
+            "source": "Dise\u00f1o para la Transici\u00f3n",
+            "target": "Teor\u00eda Cr\u00edtica del Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o para la Transici\u00f3n",
+            "target": "Dise\u00f1o para la Sostenibilidad Social"
+        },
+        {
+            "source": "Dise\u00f1o Param\u00e9trico",
+            "target": "Dibujo Planim\u00e9trico 2D"
+        },
+        {
+            "source": "Dise\u00f1o Param\u00e9trico",
+            "target": "Dibujo Planim\u00e9trico 3D"
+        },
+        {
+            "source": "Dise\u00f1o Participativo",
+            "target": "M\u00e9todos Exploratorios"
+        },
+        {
+            "source": "Dise\u00f1o Participativo",
+            "target": "M\u00e9todos Generativos"
+        },
+        {
+            "source": "Dise\u00f1o Participativo",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o UX para dispositivos m\u00f3viles",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o UX para dispositivos m\u00f3viles",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Dise\u00f1o UX para dispositivos m\u00f3viles",
+            "target": "M\u00e9todos de Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o UX para dispositivos m\u00f3viles",
+            "target": "Dise\u00f1o de Interfaces"
+        },
+        {
+            "source": "Dise\u00f1o UX para IA",
+            "target": "Machine Learning Aplicado al Dise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o UX para IA",
+            "target": "Dise\u00f1o de Interfaces Aurales"
+        },
+        {
+            "source": "Dise\u00f1o UX para IA",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Dise\u00f1o UX para IA",
+            "target": "Arquitectura de Sistemas"
+        },
+        {
+            "source": "Dise\u00f1o y Empresa",
+            "target": "Fundamentos de Econom\u00eda"
+        },
+        {
+            "source": "Dise\u00f1o y Empresa",
+            "target": "EcoDise\u00f1o"
+        },
+        {
+            "source": "Dise\u00f1o y Empresa",
+            "target": "Dise\u00f1o para la Transici\u00f3n"
+        },
+        {
+            "source": "EcoDise\u00f1o",
+            "target": "Dise\u00f1o para la Sostenibilidad Social"
+        },
+        {
+            "source": "EcoDise\u00f1o",
+            "target": "Dise\u00f1o para la Transici\u00f3n"
+        },
+        {
+            "source": "Edici\u00f3n Audiovisual",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Ergonom\u00eda",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Ergonom\u00eda",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Estudios Culturales del Dise\u00f1o",
+            "target": "Historia del Dise\u00f1o"
+        },
+        {
+            "source": "Estudios Culturales del Dise\u00f1o",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Estudios Culturales del Dise\u00f1o",
+            "target": "Teor\u00eda Cr\u00edtica del Dise\u00f1o"
+        },
+        {
+            "source": "\u00c9tica del Dise\u00f1o",
+            "target": "Teor\u00eda Cr\u00edtica del Dise\u00f1o"
+        },
+        {
+            "source": "\u00c9tica del Dise\u00f1o",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "\u00c9tica del Dise\u00f1o",
+            "target": "Filosof\u00eda del Dise\u00f1o"
+        },
+        {
+            "source": "Fabricaci\u00f3n Digital",
+            "target": "Construcci\u00f3n Formal"
+        },
+        {
+            "source": "Fabricaci\u00f3n Digital",
+            "target": "Fundamentos de Computaci\u00f3n"
+        },
+        {
+            "source": "Fabricaci\u00f3n Digital",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Fabricaci\u00f3n Digital",
+            "target": "Fundamentos de los Materiales"
+        },
+        {
+            "source": "Filosof\u00eda del Dise\u00f1o",
+            "target": "Teor\u00eda del Dise\u00f1o"
+        },
+        {
+            "source": "Filosof\u00eda del Dise\u00f1o",
+            "target": "Historia del Dise\u00f1o"
+        },
+        {
+            "source": "Fotograf\u00eda",
+            "target": "Iluminaci\u00f3n"
+        },
+        {
+            "source": "Fotograf\u00eda",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Fundamentos de Computaci\u00f3n",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Fundamentos de Geometr\u00eda",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Fundamentos de los Materiales",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Fundamentos de los Materiales",
+            "target": "Fundamentos de la Qu\u00edmica"
+        },
+        {
+            "source": "Gui\u00f3n Audiovisual (Storyboards)",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Ilustraci\u00f3n",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Ilustraci\u00f3n",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Machine Learning Aplicado al Dise\u00f1o",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "M\u00e9todos de Codise\u00f1o",
+            "target": "Fundamentos de Computaci\u00f3n"
+        },
+        {
+            "source": "M\u00e9todos de Codise\u00f1o",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "M\u00e9todos de Dise\u00f1o",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas",
+            "target": "Dise\u00f1o de Instrumentos para la Investigaci\u00f3n"
+        },
+        {
+            "source": "M\u00e9todos Exploratorios",
+            "target": "Teor\u00eda del Dise\u00f1o"
+        },
+        {
+            "source": "M\u00e9todos Exploratorios",
+            "target": "M\u00e9todos de Dise\u00f1o"
+        },
+        {
+            "source": "M\u00e9todos Generativos",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "M\u00e9todos Generativos",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "M\u00e9todos Generativos",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Modelado Org\u00e1nico 3D",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Museograf\u00eda (Espacios Expositivos)",
+            "target": "M\u00e9todos de Codise\u00f1o"
+        },
+        {
+            "source": "Narratolog\u00eda y construcci\u00f3n de discurso",
+            "target": "Dibujo Planim\u00e9trico 3D"
+        },
+        {
+            "source": "Narratolog\u00eda y construcci\u00f3n de discurso",
+            "target": "Ilustraci\u00f3n"
+        },
+        {
+            "source": "Narratolog\u00eda y construcci\u00f3n de discurso",
+            "target": "Observaci\u00f3n"
+        },
+        {
+            "source": "Observaci\u00f3n",
+            "target": "Se\u00f1al\u00e9tica y Dise\u00f1o Wayfinding"
+        },
+        {
+            "source": "Observaci\u00f3n",
+            "target": "Iluminaci\u00f3n"
+        },
+        {
+            "source": "Observaci\u00f3n",
+            "target": "Narratolog\u00eda y construcci\u00f3n de discurso"
+        },
+        {
+            "source": "Observaci\u00f3n",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Programaci\u00f3n Creativa",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Prototipado VR",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Rob\u00f3tica y Arduino",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Rob\u00f3tica y Arduino",
+            "target": "Fundamentos de Computaci\u00f3n"
+        },
+        {
+            "source": "Se\u00f1al\u00e9tica y Dise\u00f1o Wayfinding",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Se\u00f1al\u00e9tica y Dise\u00f1o Wayfinding",
+            "target": "Dibujo Planim\u00e9trico 3D"
+        },
+        {
+            "source": "Se\u00f1al\u00e9tica y Dise\u00f1o Wayfinding",
+            "target": "Modelado Org\u00e1nico 3D"
+        },
+        {
+            "source": "Shaders y Gr\u00e1ficos en Tiempo Real",
+            "target": "Fundamentos de Computaci\u00f3n"
+        },
+        {
+            "source": "Shaders y Gr\u00e1ficos en Tiempo Real",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Shaders y Gr\u00e1ficos en Tiempo Real",
+            "target": "Fabricaci\u00f3n Digital"
+        },
+        {
+            "source": "Shaders y Gr\u00e1ficos en Tiempo Real",
+            "target": "Fundamentos de la F\u00edsica"
+        },
+        {
+            "source": "Sistemas de Impresi\u00f3n",
+            "target": "Arquitectura de la Informaci\u00f3n"
+        },
+        {
+            "source": "Sistemas de Impresi\u00f3n",
+            "target": "Dise\u00f1o Inclusivo y Accesibilidad"
+        },
+        {
+            "source": "Sistemas de Impresi\u00f3n",
+            "target": "M\u00e9todos de Investigaci\u00f3n Centrados en las Personas"
+        },
+        {
+            "source": "Sistemas de Producci\u00f3n Masiva",
+            "target": "Programaci\u00f3n Creativa"
+        },
+        {
+            "source": "Sistemas de Producci\u00f3n Masiva",
+            "target": "Fundamentos de las Matem\u00e1ticas"
+        },
+        {
+            "source": "Sistemas de Producci\u00f3n Masiva",
+            "target": "Fundamentos de Geometr\u00eda"
+        },
+        {
+            "source": "Teor\u00eda Cr\u00edtica del Dise\u00f1o",
+            "target": "Historia del Dise\u00f1o"
+        },
+        {
+            "source": "Teor\u00eda Cr\u00edtica del Dise\u00f1o",
+            "target": "Dise\u00f1o Gr\u00e1fico"
+        },
+        {
+            "source": "Teor\u00eda del Dise\u00f1o",
+            "target": "Fabricaci\u00f3n Digital"
+        },
+        {
+            "source": "Teor\u00eda del Dise\u00f1o",
+            "target": "Fundamentos de los Materiales"
+        },
+        {
+            "source": "Tipograf\u00eda",
+            "target": "Historia del Dise\u00f1o"
+        },
+        {
+            "source": "Usabilidad",
+            "target": "Fundamentos de la Sicolog\u00eda"
+        },
+        {
+            "source": "Usabilidad",
+            "target": "Dise\u00f1o de Personajes"
+        },
+        {
+            "source": "Usabilidad",
+            "target": "M\u00e9todos de Dise\u00f1o"
+        }
+    ]
+}

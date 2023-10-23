@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa del Espacio del Diseño</title>
+    <meta name="author" content="Herbert Spencer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+    <script src="d3js.org_d3.v6.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+        }
+        /* Estilos para los nodos y enlaces */
+        .link {
+            stroke: #aaa;
+        }
+        .node {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+        text {
+            font-family: 'Inter', sans-serif;
+            text-anchor: middle;
+            width: 200px;
+        }
+        #controls{
+            position: absolute;
+            width: 200px;
+            bottom: 1em;
+            right: 1em;
+            text-align: right;
+        }
+        input[type="range"]{
+            width: 195px;
+        }
+        .node-label-hidden {
+            fill: black;
+        }
+        .node-label-visible {
+            fill: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <input type="range" min="10" max="100" value="30" id="distanceSlider">
+        <input type="checkbox" id="labelSwitch">
+    </div>
+    
+    <svg id="designMap"></svg>
+
+    <script>
+        // Variables
+        let linkDistance = 30;
+        let labelVisibility = false;
+
+        // Configuración inicial del gráfico
+        const svg = d3.select("#designMap")
+            .attr("width", window.innerWidth)
+            .attr("height", window.innerHeight);
+
+        // Cargar el archivo JSON con la información del mapa conceptual
+        d3.json("design-map-00.json").then(function(graph) {
+            // Crear una simulación de fuerzas para los nodos
+            const simulation = d3.forceSimulation(graph.nodes)
+                .force("link", d3.forceLink(graph.links).id(d => d.id).distance(linkDistance))
+                .force("charge", d3.forceManyBody().strength(-200))
+                .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
+
+            // Dibujar los enlaces
+            const link = svg.append("g")
+                .selectAll("line")
+                .data(graph.links)
+                .join("line")
+                .attr("class", "link");
+
+            // Create nodes
+            const node = svg.append("g")
+                .selectAll("circle")
+                .data(graph.nodes)
+                .join("circle")
+                .attr("class", "node node-label-hidden")
+                .attr("r", d => Math.sqrt(d.group) * 4)
+                .call(drag(simulation));
+
+            // Create labels
+            const label = svg.append("g")
+                .attr("class", "labels")
+                .selectAll("text")
+                .data(graph.nodes)
+                .join("text")
+                .text(d => d.id)
+                .attr("dy", "1em")
+                .attr("dx", "-1em")
+                .attr("visibility", "hidden");
+
+            // Actualizar la posición de los nodos y enlaces en cada "tick" de la simulación
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+
+                label
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y);
+            });
+
+            // Actualizar la distancia de los enlaces con el control deslizante
+            d3.select("#distanceSlider").on("input", function() {
+                linkDistance = +this.value;
+                simulation.force("link", d3.forceLink(graph.links).id(d => d.id).distance(linkDistance));
+                simulation.alpha(0.3).restart();
+            });
+            
+            // Toggle label visibility and node color with the switch
+            d3.select("#labelSwitch").on("change", function() {
+                labelVisibility = !labelVisibility;
+                label.attr("visibility", labelVisibility ? "visible" : "hidden");
+                node.attr("class", labelVisibility ? "node node-label-visible" : "node node-label-hidden");
+            });
+
+            // Función para permitir el "drag and drop" de los nodos
+            function drag(simulation) {
+                function dragstarted(event, d) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                }
+                function dragended(event, d) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+                return d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended);
+            }
+        });
+    </script>
+</body>
+</html>

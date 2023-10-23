@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visualización de Grafo de Diseño</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; padding:0; font-family: 'Nunito', sans-serif; }
+    svg { position:fixed; top:0; left:0; height:100%; width:100%; }
+    .node { fill: #de4007; stroke: #fff; stroke-width: 1.5px; }
+    .link { stroke: #0a0a0a; stroke-opacity: 0.2; }
+    .label { fill: black; text-anchor: middle; }
+    .controls { position: absolute; bottom: 10px; right: 10px; background: rgba(255, 255, 255, 0.8); padding: 10px; }
+  </style>
+</head>
+<body>
+  <svg id="designGraph"></svg>
+  <div class="controls">
+    <label>
+      <input type="checkbox" id="toggleLabels"> Mostrar etiquetas
+    </label>
+    <label>
+      Longitud de aristas: <input type="range" id="linkLength" min="10" max="300" value="100">
+    </label>
+  </div>
+
+  <script>
+    d3.json("design-map-02.json").then(function(graph) {
+    var nodes = graph.nodes;
+    var links = graph.links;
+
+  
+    // Configuración inicial
+    var linkLength = 100;
+    var showLabels = false;
+
+    // Crear la simulación de fuerza
+    var simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(linkLength))
+      .force("charge", d3.forceManyBody())
+      .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2))
+      .force("collision", d3.forceCollide().radius(function(d) {
+        return Math.sqrt(d.size) * 5 + 5;
+      }));
+
+    // Crear elementos SVG para nodos y aristas
+    var svg = d3.select("#designGraph");
+    var link = svg.append("g")
+      .attr("class", "links")
+      .selectAll(".link")
+      .data(links)
+      .enter().append("line")
+      .attr("class", "link");
+    var node = svg.append("g")
+      .attr("class", "nodes")
+      .selectAll(".node")
+      .data(nodes)
+      .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", d => Math.sqrt(d.size) * 5 + 5)
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+    var label = svg.append("g")
+      .attr("class", "labels")
+      .selectAll(".label")
+      .data(nodes)
+      .enter().append("text")
+      .attr("class", "label")
+      .text(d => d.id)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".35em")
+      .attr("visibility", "hidden")
+      .attr("font-size", d => Math.sqrt(d.size) * 5 + 5+"px");
+
+    // Actualizar la posición de los elementos en cada 'tick' de la simulación
+    simulation.on("tick", () => {
+      link.attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y);
+      node.attr("cx", d => d.x)
+          .attr("cy", d => d.y);
+      label.attr("x", d => d.x)
+           .attr("y", d => d.y);
+    });
+
+    // Control de arrastre
+    function dragstarted(event) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      event.subject.fx = event.subject.x;
+      event.subject.fy = event.subject.y;
+    }
+    function dragged(event) {
+      event.subject.fx = event.x;
+      event.subject.fy = event.y;
+    }
+    function dragended(event) {
+      if (!event.active) simulation.alphaTarget(0);
+      event.subject.fx = null;
+      event.subject.fy = null;
+    }
+    
+    // Controles interactivos
+    document.getElementById("toggleLabels").addEventListener("change", function() {
+      showLabels = !showLabels;
+      if (showLabels) {
+        node.attr("r", 0);
+        link.attr("stroke", "#ff6347");
+        label.attr("visibility", "visible");
+      } else {
+        node.attr("r", d => Math.sqrt(d.size) * 5 + 5);
+        link.attr("stroke", "#999");
+        label.attr("visibility", "hidden");
+      }
+    });
+
+    document.getElementById("linkLength").addEventListener("input", function() {
+      linkLength = this.value;
+      simulation.force("link").distance(linkLength);
+      simulation.alpha(0.3).restart();
+    });
+  });
+  </script>
+</body>
+</html>

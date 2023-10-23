@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visualización de Grafo de Diseño</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Nunito", sans-serif;
+      }
+      svg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .node {
+        fill: #de4007;
+        stroke: #fff;
+        stroke-width: 1.5px;
+      }
+      .link {
+        stroke: #0a0a0a;
+        stroke-opacity: 0.2;
+      }
+      .label {
+        fill: black;
+        text-anchor: middle;
+      }
+      .controls {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <label>
+        <input type="checkbox" id="toggleLabels" /> Mostrar etiquetas
+      </label>
+      <label>
+        Longitud de aristas:
+        <input type="range" id="linkLength" min="10" max="300" value="100" />
+      </label>
+    </div>
+    <svg id="graph"></svg>
+    <script>
+      // Configuración inicial
+      var linkLength = 100;
+      var showLabels = false;
+      var simulation, link, node, label;
+
+      // Definir el tamaño y margen del SVG
+      const width = window.innerWidth,
+        height = window.innerHeight;
+
+      // Seleccionar el SVG y asignarle dimensiones
+      const svg = d3
+        .select("#graph")
+        .attr("width", width)
+        .attr("height", height);
+
+      // Cargar datos desde el archivo CSV
+      d3.csv(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQZQVwSSUsyoYEA6Wj8bYtDbgzKVf8I1ewmnp8697gks7-WnawxLjqwgGX51L1Sk_8Qex3CSezVVYzm/pub?gid=1147217014&single=true&output=csv"
+      ).then(function (data) {
+        // Inicializar las variables nodes y links
+        let nodes = [];
+        let links = [];
+        let nodeMap = {};
+
+        // Llenar las variables nodes y links con los datos del CSV
+        data.forEach(function (row) {
+          // Inicializar el nodo en el mapa si no existe
+          if (!nodeMap[row.Materia]) {
+            nodeMap[row.Materia] = { id: row.Materia, count: 0, ead: row.EAD };
+          }
+
+          // Añadir el nodo como origen en la lista de aristas y actualizar el recuento
+          Object.keys(row).forEach(function (column) {
+            if (column.startsWith("Relación") && row[column]) { // Ajuste aquí para manejar solo columnas que comienzan con "Relación"
+      links.push({ source: row.Materia, target: row[column] }); // Usar row.Materia como origen
+
+
+              // Inicializar el nodo destino en el mapa si no existe
+              if (!nodeMap[row[column]]) {
+                nodeMap[row[column]] = { id: row[column], count: 0 };
+              }
+
+              // Incrementar el recuento para el nodo destino
+              nodeMap[row[column]].count += 1;
+            }
+          });
+        });
+
+        // Crear la lista de nodos a partir del mapa de nodos
+        nodes = Object.values(nodeMap);
+
+        // Crear la simulación usando D3 force
+        simulation = d3
+          .forceSimulation(nodes)
+          .force(
+            "link",
+            d3.forceLink(links).id((d) => d.id)
+          )
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Crear los elementos SVG para los nodos y las aristas
+        link = svg
+          .append("g")
+          .attr("class", "links")
+          .selectAll("line")
+          .data(links)
+          .enter()
+          .append("line")
+          .attr("stroke", "#00000022");
+
+        node = svg
+          .append("g")
+          .attr("class", "nodes")
+          .selectAll("circle")
+          .data(nodes)
+          .enter()
+          .append("circle")
+          .attr("r", (d) => Math.sqrt(d.count) * 5)
+          .attr("fill", (d) => {
+            // Colorear según la columna EAD
+            if (d.EAD === "sí") return "#980404";
+            if (d.EAD === "no") return "#1c242ca1";
+            if (d.EAD === "potencial") return "#e7400dd1";
+          });
+
+        label = svg
+          .append("g")
+          .attr("class", "labels")
+          .selectAll(".label")
+          .data(nodes)
+          .enter()
+          .append("text")
+          .attr("class", "label")
+          .text((d) => d.id)
+          .attr("text-anchor", "middle")
+          .attr("dy", ".35em")
+          .attr("visibility", "hidden")
+          .attr("font-size", (d) => Math.sqrt(d.count) * 5 + 5 + "px");
+
+        // Actualizar la simulación
+        simulation.nodes(nodes);
+        simulation.force("link").links(links);
+
+        // Actualizar la posición de los nodos y aristas
+        simulation.on("tick", function () {
+          link
+            .attr("x1", (d) => d.source.x)
+            .attr("y1", (d) => d.source.y)
+            .attr("x2", (d) => d.target.x)
+            .attr("y2", (d) => d.target.y);
+
+          node
+            .attr("cx", (d) => d.x)
+            .attr("cy", (d) => d.y)
+            .call(
+              d3
+                .drag()
+                .on("start", dragStarted)
+                .on("drag", dragged)
+                .on("end", dragEnded)
+            );
+
+          label
+          .attr("x", (d) => d.x).attr("y", (d) => d.y);
+        });
+      });
+
+      // Control de arrastre
+      function dragStarted(event) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+      }
+      function dragged(event) {
+        event.subject.fx = event.x;
+        event.subject.fy = event.y;
+      }
+      function dragEnded(event) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+      }
+
+      // Controles interactivos
+      document
+        .getElementById("toggleLabels")
+        .addEventListener("change", function () {
+          showLabels = !showLabels;
+          if (showLabels) {
+            node.attr("r", 0);
+            label.attr("visibility", "visible");
+            link.attr("stroke", "rgba(255, 255, 255, 0)");
+          } else {
+            node.attr("r", (d) => Math.sqrt(d.count) * 5);
+            label.attr("visibility", "hidden");
+            link.attr("stroke", "#00000022");
+          }
+        });
+
+      document
+        .getElementById("linkLength")
+        .addEventListener("input", function () {
+          linkLength = this.value;
+          simulation.force("link").distance(linkLength);
+          simulation.alpha(0.3).restart();
+        });
+    </script>
+  </body>
+</html>
