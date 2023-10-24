@@ -142,11 +142,11 @@
           .attr("dy", ".35em")
           .attr("visibility", "hidden")
           .attr("font-size", (d) => Math.sqrt(d.count) * 3 + 12 + "px")
-          .attr("fill", (d) => {
+          .style("fill", (d) => {
             // Colorear según la columna EAD
             if (d.ead === "sí") return "#000";
-            if (d.ead === "no") return "#998877";
-            if (d.ead === "potencial") return "#e7400d";
+            if (d.ead === "no") return "#f53";
+            if (d.ead === "potencial") return "#0005";
           });
 
         // Actualizar la simulación
