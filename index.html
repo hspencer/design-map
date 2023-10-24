@@ -1,33 +1,228 @@
+<!DOCTYPE html>
 <html>
-<head>
-    <style>
-        a{
-            display: inline-block;
-            padding: 1ex 1em;
-            font-size: 1em;
-            font-family: sans-serif;
-            font-weight: bold;
-            text-decoration: none;
-            margin: 1em;
-            background-color: rgb(3, 41, 191);
-            color: white;
-            border-radius: .5ex;
-            transition: all ease 1s;
-        }
-        a:hover{
-            background-color: rgb(255, 120, 63);
-            margin-left: 2em;
-        }
-    </style>
-</head>
-<a href="design-00.html">00</a>
-<br>
-<a href="design-01.html">01</a>
-<br>
-<a href="design-02.html">02</a>
-<br>
-<a href="design-03.html">03</a>
-<br>
-<a href="design-04.html">04</a>:
-<br>El 4 se conecta a Google Spreadsheet y visualiza los datos de esa planilla.
+  <head>
+    <title>Mapa del Diseño</title>
+    <script src="d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <label>
+        <input type="checkbox" id="toggleLabels" /> Mostrar etiquetas
+      </label>
+      <label>
+        <input type="range" id="linkLength" min="10" max="300" value="100" />
+        Largo
+      </label>
+      <label>
+        <input
+          type="range"
+          id="linkStrength"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0.5"
+        />
+        Fuerza
+      </label>
+    </div>
+    <svg id="graph"></svg>
+    <script>
+      // Configuración inicial
+      var linkLength = 100;
+      var linkStrength = 0.5;
+      var showLabels = false;
+      var simulation, link, node, label;
+
+      // Definir el tamaño y margen del SVG
+      const width = window.innerWidth,
+        height = window.innerHeight;
+
+      // Seleccionar el SVG y asignarle dimensiones
+      const svg = d3
+        .select("#graph")
+        .attr("width", width)
+        .attr("height", height);
+
+      // Cargar datos desde el archivo CSV
+      d3.csv(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQZQVwSSUsyoYEA6Wj8bYtDbgzKVf8I1ewmnp8697gks7-WnawxLjqwgGX51L1Sk_8Qex3CSezVVYzm/pub?gid=1147217014&single=true&output=csv"
+      ).then(function (data) {
+        // Inicializar las variables nodes y links
+        let nodes = [];
+        let links = [];
+        let nodeMap = {};
+
+        // Paso 1: Inicializar todos los nodos con id y ead
+        data.forEach(function (row) {
+          if (!nodeMap[row.Materia]) {
+            nodeMap[row.Materia] = {
+              id: row.Materia,
+              count: 0, // Inicializado en 0
+              ead: row.EAD,
+            };
+          }
+        });
+
+        // Paso 2: Procesar las relaciones para construir los enlaces y actualizar los recuentos
+        data.forEach(function (row) {
+          Object.keys(row).forEach(function (column) {
+            if (column.startsWith("Relación") && row[column]) {
+              // Asegurarse de que el nodo destino también esté inicializado
+              if (!nodeMap[row[column]]) {
+                nodeMap[row[column]] = { id: row[column], count: 0, ead: "no" }; // Se inicializa con "no" si no existe previamente
+              }
+
+              // Añadir el enlace solo si ambos nodos existen
+              if (nodeMap[row.Materia] && nodeMap[row[column]]) {
+                links.push({ source: row.Materia, target: row[column] });
+              }
+
+              // Incrementar el recuento para el nodo destino
+              nodeMap[row[column]].count += 1;
+            }
+          });
+        });
+
+        // Crear la lista de nodos a partir del mapa de nodos
+        nodes = Object.values(nodeMap);
+
+        // Crear la lista de nodos a partir del mapa de nodos
+        nodes = Object.values(nodeMap);
+
+        // Crear la simulación usando D3 force
+        simulation = d3
+          .forceSimulation(nodes)
+          .force(
+            "link",
+            d3
+              .forceLink(links)
+              .id((d) => d.id)
+              .distance(linkLength)
+              .strength(linkStrength)
+          )
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Crear los elementos SVG para los nodos y las aristas
+        link = svg
+          .append("g")
+          .attr("class", "links")
+          .selectAll("line")
+          .data(links)
+          .enter()
+          .append("line")
+          .attr("stroke", "#00000022");
+
+        node = svg
+          .append("g")
+          .attr("class", "nodes")
+          .selectAll("circle")
+          .data(nodes)
+          .enter()
+          .append("circle")
+          .attr("r", (d) => Math.sqrt(d.count) * 5)
+          .attr("fill", (d) => {
+            // Colorear según la columna EAD
+            if (d.ead === "sí") return "#000";
+            if (d.ead === "no") return "#998877";
+            if (d.ead === "potencial") return "#e7400d";
+          });
+
+        label = svg
+          .append("g")
+          .attr("class", "labels")
+          .selectAll(".label")
+          .data(nodes)
+          .enter()
+          .append("text")
+          .attr("class", "label")
+          .text((d) => d.id)
+          .attr("text-anchor", "middle")
+          .attr("dy", ".35em")
+          .attr("visibility", "hidden")
+          .attr("font-size", (d) => Math.sqrt(d.count) * 3 + 12 + "px")
+          .attr("fill", (d) => {
+            // Colorear según la columna EAD
+            if (d.ead === "sí") return "#000";
+            if (d.ead === "no") return "#998877";
+            if (d.ead === "potencial") return "#e7400d";
+          });
+
+        // Actualizar la simulación
+        simulation.nodes(nodes);
+        simulation.force("link").links(links);
+
+        // Actualizar la posición de los nodos y aristas
+        simulation.on("tick", function () {
+          link
+            .attr("x1", (d) => d.source.x)
+            .attr("y1", (d) => d.source.y)
+            .attr("x2", (d) => d.target.x)
+            .attr("y2", (d) => d.target.y);
+
+          node
+            .attr("cx", (d) => d.x)
+            .attr("cy", (d) => d.y)
+            .call(
+              d3
+                .drag()
+                .on("start", dragStarted)
+                .on("drag", dragged)
+                .on("end", dragEnded)
+            );
+
+          label.attr("x", (d) => d.x).attr("y", (d) => d.y);
+        });
+      });
+
+      // Control de arrastre
+      function dragStarted(event) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+      }
+      function dragged(event) {
+        event.subject.fx = event.x;
+        event.subject.fy = event.y;
+      }
+      function dragEnded(event) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+      }
+
+      // Controles interactivos
+      document
+        .getElementById("toggleLabels")
+        .addEventListener("change", function () {
+          showLabels = !showLabels;
+          if (showLabels) {
+            node.attr("r", 0);
+            label.attr("visibility", "visible");
+            link.attr("stroke", "rgba(255, 255, 255, 0)");
+          } else {
+            node.attr("r", (d) => Math.sqrt(d.count) * 5);
+            label.attr("visibility", "hidden");
+            link.attr("stroke", "#00000022");
+          }
+        });
+
+      document
+        .getElementById("linkLength")
+        .addEventListener("input", function () {
+          linkLength = this.value;
+          simulation.force("link").distance(linkLength);
+          simulation.alpha(0.3).restart();
+        });
+
+      document
+        .getElementById("linkStrength")
+        .addEventListener("input", function () {
+          linkStrength = this.value;
+          simulation.force("link").strength(+linkStrength);
+          simulation.alpha(0.3).restart();
+        });
+    </script>
+  </body>
 </html>
