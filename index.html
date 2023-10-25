@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mapa del Diseño</title>
+    <title>MAD - Líneas de Investigación</title>
     <script src="d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -11,17 +11,11 @@
         <input type="checkbox" id="toggleLabels" /> Mostrar etiquetas
       </label>
       <label>
-        <input type="range" id="linkLength" min="10" max="300" value="100" />
+        <input type="range" id="linkLength" min="10" max="600" value="61" />
         Largo
       </label>
       <label>
-        <input
-          type="range"
-          id="linkStrength"
-          min="0"
-          max="1"
-          step="0.1"
-          value="0.5"
+        <input type="range" id="linkStrength" min="0" max="1" step="0.01" value="0.07"
         />
         Fuerza
       </label>
@@ -29,8 +23,8 @@
     <svg id="graph"></svg>
     <script>
       // Configuración inicial
-      var linkLength = 100;
-      var linkStrength = 0.5;
+      var linkLength = document.getElementById("linkLength").value;
+      var linkStrength = document.getElementById("linkStrength").value;
       var showLabels = false;
       var simulation, link, node, label;
 
@@ -46,18 +40,21 @@
 
       // Cargar datos desde el archivo CSV
       d3.csv(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQZQVwSSUsyoYEA6Wj8bYtDbgzKVf8I1ewmnp8697gks7-WnawxLjqwgGX51L1Sk_8Qex3CSezVVYzm/pub?gid=1147217014&single=true&output=csv"
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcrfsdeArUHSpYd5J7Pby6nn2bZgwGTy8KBl5NPdTCNsvkBTXdI54amrC39Q3PQd0AAO6KY-lhcplr/pub?gid=1147217014&single=true&output=csv"
       ).then(function (data) {
         // Inicializar las variables nodes y links
         let nodes = [];
         let links = [];
         let nodeMap = {};
 
+        // Mapa para mantener un registro del número de relaciones para cada línea
+        let relationCount = {};
+
         // Paso 1: Inicializar todos los nodos con id y ead
         data.forEach(function (row) {
-          if (!nodeMap[row.Materia]) {
-            nodeMap[row.Materia] = {
-              id: row.Materia,
+          if (!nodeMap[row.Línea]) {
+            nodeMap[row.Línea] = {
+              id: row.Línea,
               count: 0, // Inicializado en 0
               ead: row.EAD,
             };
@@ -66,16 +63,29 @@
 
         // Paso 2: Procesar las relaciones para construir los enlaces y actualizar los recuentos
         data.forEach(function (row) {
+          // Inicializar el contador para la línea actual
+          relationCount[row.Línea] = 1;
+
           Object.keys(row).forEach(function (column) {
             if (column.startsWith("Relación") && row[column]) {
+              // Incrementar el contador para la línea actual
+              relationCount[row.Línea] += 1;
+
+              
               // Asegurarse de que el nodo destino también esté inicializado
               if (!nodeMap[row[column]]) {
-                nodeMap[row[column]] = { id: row[column], count: 0, ead: "no" }; // Se inicializa con "no" si no existe previamente
+                nodeMap[row[column]] = { id: row[column], count: 0, ead: "no" };
               }
+              
 
               // Añadir el enlace solo si ambos nodos existen
-              if (nodeMap[row.Materia] && nodeMap[row[column]]) {
-                links.push({ source: row.Materia, target: row[column] });
+              if (nodeMap[row.Línea] && nodeMap[row[column]]) {
+                // Añadir la propiedad 'length' al enlace
+                links.push({
+                  source: row.Línea,
+                  target: row[column],
+                  length: relationCount[row.Línea],
+                });
               }
 
               // Incrementar el recuento para el nodo destino
@@ -87,8 +97,10 @@
         // Crear la lista de nodos a partir del mapa de nodos
         nodes = Object.values(nodeMap);
 
-        // Crear la lista de nodos a partir del mapa de nodos
-        nodes = Object.values(nodeMap);
+        console.log("nodes: ");
+        console.log(nodes);
+        console.log("links: ");
+        console.log(links);
 
         // Crear la simulación usando D3 force
         simulation = d3
@@ -98,10 +110,11 @@
             d3
               .forceLink(links)
               .id((d) => d.id)
-              .distance(linkLength)
+              .distance((d) => d.length * linkLength) // Usar length como multiplicador
               .strength(linkStrength)
+    
           )
-          .force("charge", d3.forceManyBody())
+          .force("charge", d3.forceManyBody().strength(-linkLength))
           .force("center", d3.forceCenter(width / 2, height / 2));
 
         // Crear los elementos SVG para los nodos y las aristas
@@ -124,9 +137,9 @@
           .attr("r", (d) => Math.sqrt(d.count) * 5)
           .attr("fill", (d) => {
             // Colorear según la columna EAD
-            if (d.ead === "sí") return "#000";
-            if (d.ead === "no") return "#998877";
-            if (d.ead === "potencial") return "#e7400d";
+            if (d.ead === "específica") return "#3f3f3f";
+            if (d.ead === "transversal") return "#070707";
+            if (d.ead === "central") return "#af2709de";
           });
 
         label = svg
@@ -144,9 +157,9 @@
           .attr("font-size", (d) => Math.sqrt(d.count) * 3 + 12 + "px")
           .style("fill", (d) => {
             // Colorear según la columna EAD
-            if (d.ead === "sí") return "#000";
-            if (d.ead === "no") return "#f53";
-            if (d.ead === "potencial") return "#0005";
+            if (d.ead === "específica") return "#3f3f3f";
+            if (d.ead === "transversal") return "#070707";
+            if (d.ead === "central") return "#af2709de";
           });
 
         // Actualizar la simulación
@@ -212,7 +225,8 @@
         .getElementById("linkLength")
         .addEventListener("input", function () {
           linkLength = this.value;
-          simulation.force("link").distance(linkLength);
+          simulation.force("link").distance((d) => linkLength ); // Actualizar la función distance
+          simulation.force("charge").strength(-linkLength);
           simulation.alpha(0.3).restart();
         });
 
@@ -220,7 +234,7 @@
         .getElementById("linkStrength")
         .addEventListener("input", function () {
           linkStrength = this.value;
-          simulation.force("link").strength(+linkStrength);
+          simulation.force("link").strength((d) => linkStrength * 3);
           simulation.alpha(0.3).restart();
         });
     </script>
