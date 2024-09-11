@@ -11,8 +11,8 @@ body {
     width: 100%;
   }
   .node {
-    fill: #de4007;
-    stroke: #fff;
+    fill: #3c3c24;
+    stroke: #fab171;
     stroke-width: 1.5px;
   }
   .link {
@@ -26,7 +26,78 @@ body {
   .controls {
     position: absolute;
     bottom: 1em;
-    right: 1em;
+    right: 1em;body {
+      margin: 0;
+      padding: 0;
+      font-family: "Nunito", sans-serif;
+      background-color: #f4f4f4;
+  }
+  
+  svg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #ffffff;
+      cursor: move;
+  }
+  
+  .node {
+      fill: #3c3c24;
+      stroke: #fab171;
+      stroke-width: 2px;
+      transition: transform 0.2s;
+  }
+  
+  .node:hover {
+      transform: scale(1.2);
+      stroke-width: 3px;
+      cursor: pointer;
+  }
+  
+  .link {
+      stroke: #0a0a0a;
+      stroke-opacity: 0.3;
+  }
+  
+  .label {
+      fill: #333333;
+      text-anchor: middle;
+      font-size: 14px;
+      pointer-events: none;
+      font-weight: bold;
+  }
+  
+  .controls {
+      position: absolute;
+      bottom: 1em;
+      right: 1em;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      font-size: 14px;
+  }
+  
+  .controls label {
+      display: block;
+      margin: 10px 0;
+      font-weight: bold;
+      color: #333333;
+  }
+  
+  input[type="checkbox"],
+  input[type="range"] {
+      margin-left: 10px;
+  }
+  
+  input[type="range"] {
+      width: 100px;
+  }
+  
     background: rgba(255, 255, 255, 0.8);
     z-index: 10;
   }

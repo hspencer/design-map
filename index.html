@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mapa del Diseño</title>
     <script src="d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css" />
@@ -12,7 +14,7 @@
       </label>
       <label>
         <input type="range" id="linkLength" min="10" max="300" value="100" />
-        Largo
+        Largo de enlaces
       </label>
       <label>
         <input
@@ -23,74 +25,52 @@
           step="0.1"
           value="0.5"
         />
-        Fuerza
+        Fuerza de enlaces
       </label>
     </div>
     <svg id="graph"></svg>
     <script>
-      // Configuración inicial
       var linkLength = 100;
       var linkStrength = 0.5;
       var showLabels = false;
       var simulation, link, node, label;
 
-      // Definir el tamaño y margen del SVG
       const width = window.innerWidth,
         height = window.innerHeight;
 
-      // Seleccionar el SVG y asignarle dimensiones
       const svg = d3
         .select("#graph")
         .attr("width", width)
         .attr("height", height);
 
-      // Cargar datos desde el archivo CSV
       d3.csv(
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vRH7srxOeUb950beVHfXg6RckjZL1axbyHBfoR6oXbGhpdX2F2-1bUpN6a64LqmHd01QsHEH_c0Kawa/pub?gid=1339882215&single=true&output=csv"
       ).then(function (data) {
-        // Inicializar las variables nodes y links
         let nodes = [];
         let links = [];
         let nodeMap = {};
 
-        // Paso 1: Inicializar todos los nodos con id y ead
+        // Crear nodos si no están en jerarquía central
         data.forEach(function (row) {
-          if (!nodeMap[row.Materia]) {
-            nodeMap[row.Materia] = {
-              id: row.Materia,
-              count: 0, // Inicializado en 0
-              ead: row.EAD,
-            };
+          if (!nodeMap[row.Tema]) {
+            nodeMap[row.Tema] = { id: row.Tema, count: 0 };
           }
         });
 
-        // Paso 2: Procesar las relaciones para construir los enlaces y actualizar los recuentos
+        // Procesar relaciones y construir enlaces
         data.forEach(function (row) {
           Object.keys(row).forEach(function (column) {
             if (column.startsWith("Relación") && row[column]) {
-              // Asegurarse de que el nodo destino también esté inicializado
-              if (!nodeMap[row[column]]) {
-                nodeMap[row[column]] = { id: row[column], count: 0, ead: "no" }; // Se inicializa con "no" si no existe previamente
+              if (nodeMap[row[column]]) {
+                links.push({ source: row.Tema, target: row[column] });
               }
-
-              // Añadir el enlace solo si ambos nodos existen
-              if (nodeMap[row.Materia] && nodeMap[row[column]]) {
-                links.push({ source: row.Materia, target: row[column] });
-              }
-
-              // Incrementar el recuento para el nodo destino
-              nodeMap[row[column]].count += 1;
             }
           });
         });
 
-        // Crear la lista de nodos a partir del mapa de nodos
         nodes = Object.values(nodeMap);
 
-        // Crear la lista de nodos a partir del mapa de nodos
-        nodes = Object.values(nodeMap);
-
-        // Crear la simulación usando D3 force
+        // Crear la simulación
         simulation = d3
           .forceSimulation(nodes)
           .force(
@@ -104,7 +84,7 @@
           .force("charge", d3.forceManyBody())
           .force("center", d3.forceCenter(width / 2, height / 2));
 
-        // Crear los elementos SVG para los nodos y las aristas
+        // Enlaces
         link = svg
           .append("g")
           .attr("class", "links")
@@ -112,8 +92,9 @@
           .data(links)
           .enter()
           .append("line")
-          .attr("stroke", "#00000022");
+          .attr("class", "link");
 
+        // Nodos
         node = svg
           .append("g")
           .attr("class", "nodes")
@@ -121,39 +102,33 @@
           .data(nodes)
           .enter()
           .append("circle")
+          .attr("class", "node")
           .attr("r", (d) => Math.sqrt(d.count) * 5)
-          .attr("fill", (d) => {
-            // Colorear según la columna EAD
-            if (d.ead === "sí") return "#000";
-            if (d.ead === "no") return "#998877";
-            if (d.ead === "potencial") return "#e7400d";
-          });
+          .call(
+            d3
+              .drag()
+              .on("start", dragStarted)
+              .on("drag", dragged)
+              .on("end", dragEnded)
+          );
 
+        // Etiquetas
         label = svg
           .append("g")
           .attr("class", "labels")
-          .selectAll(".label")
+          .selectAll("text")
           .data(nodes)
           .enter()
           .append("text")
           .attr("class", "label")
           .text((d) => d.id)
-          .attr("text-anchor", "middle")
-          .attr("dy", ".35em")
-          .attr("visibility", "hidden")
-          .attr("font-size", (d) => Math.sqrt(d.count) * 3 + 12 + "px")
-          .style("fill", (d) => {
-            // Colorear según la columna EAD
-            if (d.ead === "sí") return "#000";
-            if (d.ead === "no") return "#f53";
-            if (d.ead === "potencial") return "#0005";
-          });
+          .attr("visibility", "hidden");
 
         // Actualizar la simulación
         simulation.nodes(nodes);
         simulation.force("link").links(links);
 
-        // Actualizar la posición de los nodos y aristas
+        // Actualización de la posición
         simulation.on("tick", function () {
           link
             .attr("x1", (d) => d.source.x)
@@ -161,68 +136,57 @@
             .attr("x2", (d) => d.target.x)
             .attr("y2", (d) => d.target.y);
 
-          node
-            .attr("cx", (d) => d.x)
-            .attr("cy", (d) => d.y)
-            .call(
-              d3
-                .drag()
-                .on("start", dragStarted)
-                .on("drag", dragged)
-                .on("end", dragEnded)
-            );
+          node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
 
           label.attr("x", (d) => d.x).attr("y", (d) => d.y);
         });
+
+        // Controles de interacción
+        document
+          .getElementById("toggleLabels")
+          .addEventListener("change", function () {
+            showLabels = !showLabels;
+            if (showLabels) {
+              label.attr("visibility", "visible");
+            } else {
+              label.attr("visibility", "hidden");
+            }
+          });
+
+        document
+          .getElementById("linkLength")
+          .addEventListener("input", function () {
+            linkLength = this.value;
+            simulation.force("link").distance(linkLength);
+            simulation.alpha(0.3).restart();
+          });
+
+        document
+          .getElementById("linkStrength")
+          .addEventListener("input", function () {
+            linkStrength = this.value;
+            simulation.force("link").strength(+linkStrength);
+            simulation.alpha(0.3).restart();
+          });
       });
 
-      // Control de arrastre
+      // Funciones de arrastre
       function dragStarted(event) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         event.subject.fx = event.subject.x;
         event.subject.fy = event.subject.y;
       }
+
       function dragged(event) {
         event.subject.fx = event.x;
         event.subject.fy = event.y;
       }
+
       function dragEnded(event) {
         if (!event.active) simulation.alphaTarget(0);
         event.subject.fx = null;
         event.subject.fy = null;
       }
-
-      // Controles interactivos
-      document
-        .getElementById("toggleLabels")
-        .addEventListener("change", function () {
-          showLabels = !showLabels;
-          if (showLabels) {
-            node.attr("r", 0);
-            label.attr("visibility", "visible");
-            link.attr("stroke", "rgba(255, 255, 255, 0)");
-          } else {
-            node.attr("r", (d) => Math.sqrt(d.count) * 5);
-            label.attr("visibility", "hidden");
-            link.attr("stroke", "#00000022");
-          }
-        });
-
-      document
-        .getElementById("linkLength")
-        .addEventListener("input", function () {
-          linkLength = this.value;
-          simulation.force("link").distance(linkLength);
-          simulation.alpha(0.3).restart();
-        });
-
-      document
-        .getElementById("linkStrength")
-        .addEventListener("input", function () {
-          linkStrength = this.value;
-          simulation.force("link").strength(+linkStrength);
-          simulation.alpha(0.3).restart();
-        });
     </script>
   </body>
 </html>
