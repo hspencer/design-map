@@ -3,7 +3,7 @@
 Este es un mapa construido a partir de las materias y sus relaciones en el campo del Diseño en el contexto formativo de la Escuela de Arquitectura y Diseño PUCV.
 
 ### Datos
-Los datos están estructurados en una [planilla compartida](https://docs.google.com/spreadsheets/d/1qheFYhrfnUIKpc87ENJQO1ezpZ_3XYXOw20wP6GpaNU/edit?usp=sharing) que se publica en formato [CSV](https://docs.google.com/spreadsheets/d/e/2PACX-1vQZQVwSSUsyoYEA6Wj8bYtDbgzKVf8I1ewmnp8697gks7-WnawxLjqwgGX51L1Sk_8Qex3CSezVVYzm/pub?gid=1147217014&single=true&output=csv) y es consumida por la visualización. La estructura de los datos se ordena de la siguiente manera:
+Los datos están estructurados en una [planilla compartida](https://docs.google.com/spreadsheets/d/10Y4lf12X5LMDLnnClRoYhbfUiy7_N78HIkFqIY2VtmY/edit?usp=sharing) que se publica en formato [CSV](https://docs.google.com/spreadsheets/d/e/2PACX-1vRH7srxOeUb950beVHfXg6RckjZL1axbyHBfoR6oXbGhpdX2F2-1bUpN6a64LqmHd01QsHEH_c0Kawa/pub?gid=1339882215&single=true&output=csv) y es consumida por la visualización. La estructura de los datos se ordena de la siguiente manera:
 
 | **Materia** | **EAD** | **Relación 1** | **Relación 2** | **Relación 3** | **...** | **Relación 10** |
 |-------------|---------|----------------|----------------|----------------|---------|-----------------|
