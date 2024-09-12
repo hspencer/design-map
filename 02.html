@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa del Diseño</title>
+    <script src="d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <label>
+        <input type="checkbox" id="toggleLabels" /> Mostrar etiquetas
+      </label>
+      <label>
+        <input type="range" id="linkLength" min="10" max="300" value="100" />
+        Largo de enlaces
+      </label>
+      <label>
+        <input
+          type="range"
+          id="linkStrength"
+          min="0"
+          max="3" <!-- ampliado el rango de fuerza -->
+          step="0.1"
+          value="0.5"
+        />
+        Fuerza de enlaces
+      </label>
+    </div>
+    <svg id="graph"></svg>
+    <script>
+      var linkLength = 100;
+      var linkStrength = 0.5;
+      var showLabels = false;
+      var simulation, link, node, label, rectangle;
+
+      const width = window.innerWidth,
+        height = window.innerHeight;
+
+      const svg = d3
+        .select("#graph")
+        .attr("width", width)
+        .attr("height", height)
+        .call(d3.zoom().on("zoom", function (event) { // Zoom con scroll
+          svg.attr("transform", event.transform);
+        }))
+        .append("g");  // Para que el zoom funcione sobre el grupo
+
+      d3.csv(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vRH7srxOeUb950beVHfXg6RckjZL1axbyHBfoR6oXbGhpdX2F2-1bUpN6a64LqmHd01QsHEH_c0Kawa/pub?gid=1339882215&single=true&output=csv"
+      ).then(function (data) {
+        let nodes = [];
+        let links = [];
+        let nodeMap = {};
+
+        // Crear nodos si no están en jerarquía central
+        data.forEach(function (row) {
+          if (!nodeMap[row.Tema]) {
+            nodeMap[row.Tema] = { id: row.Tema, count: 0 };
+          }
+        });
+
+        // Procesar relaciones y construir enlaces
+        data.forEach(function (row) {
+          Object.keys(row).forEach(function (column) {
+            if (column.startsWith("Relación") && row[column]) {
+              if (nodeMap[row[column]]) {
+                links.push({ source: row.Tema, target: row[column] });
+              }
+            }
+          });
+        });
+
+        nodes = Object.values(nodeMap);
+
+        // Escala para el tamaño del texto basado en el número de relaciones
+        const fontSizeScale = d3.scaleSqrt()
+          .domain([d3.min(nodes, d => d.count), d3.max(nodes, d => d.count)])
+          .range([0, 38]);  // Tamaño mínimo y máximo del texto basado en la cantidad de relaciones
+
+        // Crear la simulación
+        simulation = d3
+          .forceSimulation(nodes)
+          .force(
+            "link",
+            d3
+              .forceLink(links)
+              .id((d) => d.id)
+              .distance(linkLength)
+              .strength(linkStrength)
+          )
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Enlaces
+        link = svg
+          .append("g")
+          .attr("class", "links")
+          .selectAll("line")
+          .data(links)
+          .enter()
+          .append("line")
+          .attr("class", "link");
+
+        // Círculos para nodos (solo visibles cuando las etiquetas están apagadas)
+        rectangle = svg
+          .append("g")
+          .attr("class", "rectangles")
+          .selectAll("rect")
+          .data(nodes)
+          .enter()
+          .append("rect")
+          .attr("fill", "rgba(255, 192, 203, 0.5)") // Color rosado con transparencia
+          .attr("visibility", "hidden");
+
+        // Etiquetas
+        label = svg
+          .append("g")
+          .attr("class", "labels")
+          .selectAll("text")
+          .data(nodes)
+          .enter()
+          .append("text")
+          .attr("class", "label")
+          .text(d => d.id)
+          .style("font-size", d => fontSizeScale(d.count) + "px") // Tamaño ajustado dinámicamente
+          .call(
+            d3.drag()
+              .on("start", dragStarted)
+              .on("drag", dragged)
+              .on("end", dragEnded)
+          );
+
+        // Actualizar la simulación
+        simulation.nodes(nodes);
+        simulation.force("link").links(links);
+
+        // Actualización de la posición
+        simulation.on("tick", function () {
+          link
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+          label
+            .attr("x", d => d.x)
+            .attr("y", d => d.y);
+
+          // Actualizar los rectángulos a partir de las dimensiones del texto
+          label.each(function (d) {
+            const bbox = this.getBBox();
+            d.bbox = bbox; // Guardar las dimensiones del texto en cada nodo
+          });
+
+          rectangle
+            .attr("x", d => d.x - d.bbox.width / 2)
+            .attr("y", d => d.y - d.bbox.height / 2)
+            .attr("width", d => d.bbox.width)
+            .attr("height", d => d.bbox.height);
+        });
+
+        // Controles de interacción
+        document
+          .getElementById("toggleLabels")
+          .addEventListener("change", function () {
+            showLabels = !showLabels;
+            if (showLabels) {
+              label.attr("visibility", "visible");
+              rectangle.attr("visibility", "hidden");
+              link.attr("visibility", "hidden"); // Desaparecen los enlaces
+            } else {
+              label.attr("visibility", "hidden");
+              rectangle.attr("visibility", "visible");
+              link.attr("visibility", "visible"); // Enlaces reaparecen
+            }
+          });
+
+        document
+          .getElementById("linkLength")
+          .addEventListener("input", function () {
+            linkLength = this.value;
+            simulation.force("link").distance(linkLength);
+            simulation.alpha(0.3).restart();
+          });
+
+        document
+          .getElementById("linkStrength")
+          .addEventListener("input", function () {
+            linkStrength = this.value;
+            simulation.force("link").strength(+linkStrength);
+            simulation.alpha(0.3).restart();
+          });
+      });
+
+      // Funciones de arrastre
+      function dragStarted(event) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+      }
+
+      function dragged(event) {
+        event.subject.fx = event.x;
+        event.subject.fy = event.y;
+      }
+
+      function dragEnded(event) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+      }
+    </script>
+  </body>
+</html>
+
