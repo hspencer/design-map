@@ -63,7 +63,6 @@
     </script>
 
     <script type="module">
-      // Cargar las dependencias de Three.js y OrbitControls
       import * as THREE from "three";
       import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -78,6 +77,7 @@
             1000
           );
           camera.position.set(0, 0, 300); // Alejar la cámara
+          scene.fog = new THREE.Fog(0xffffff, 500, 1000); // Aumentar la distancia para que los objetos no queden ocultos
 
           const renderer = new THREE.WebGLRenderer({ antialias: true });
           renderer.setSize(window.innerWidth, window.innerHeight);
@@ -86,64 +86,60 @@
 
           // Controles de órbita para navegar en el espacio 3D
           const controls = new OrbitControls(camera, renderer.domElement);
-
-          // Habilitar zoom
           controls.enableZoom = true;
-
-          // Ajustar la velocidad del zoom
           controls.zoomSpeed = 1.2;
-
-          // Habilitar rotación y pan (si es necesario)
           controls.enableRotate = true;
           controls.enablePan = true;
-
-          // Geometría y material para los nodos
-          const geometry = new THREE.SphereGeometry(5, 32, 32);
-          const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
-          const nodes = [];
 
           // Cargar los datos desde CSV con D3
           const data = await d3.csv(
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vRH7srxOeUb950beVHfXg6RckjZL1axbyHBfoR6oXbGhpdX2F2-1bUpN6a64LqmHd01QsHEH_c0Kawa/pub?gid=1339882215&single=true&output=csv"
           );
-
           console.log("Datos CSV cargados:", data); // Verificar que los datos se cargan
 
-          // cuantificación de conexiones
-          const nodeConnections = {}; // Almacenar cuántas conexiones tiene cada nodo
+          // Cuantificación de conexiones
+          const nodeConnections = {};
+
+          // Recorrer todas las filas para contar las conexiones desde cada tema
           data.forEach((row) => {
+            const tema = row.Materia;
+
+            if (!nodeConnections[tema]) {
+              nodeConnections[tema] = 0;
+            }
+
+            // Sumar conexiones desde las relaciones en las columnas
             Object.keys(row).forEach((column) => {
               if (column.startsWith("Relación") && row[column]) {
-                if (!nodeConnections[row[column]]) {
-                  nodeConnections[row[column]] = 0;
+                const relacion = row[column];
+
+                // Sumar una conexión desde el tema actual a otro tema
+                nodeConnections[tema] += 1;
+
+                // Si la relación es con otro tema, sumarle también a ese tema
+                if (!nodeConnections[relacion]) {
+                  nodeConnections[relacion] = 0;
                 }
-                nodeConnections[row[column]] += 1;
+                nodeConnections[relacion] += 1;
               }
             });
           });
 
-          // Creación de nodos
-          data.forEach((d) => {
-            const node = new THREE.Mesh(geometry, material);
-            node.position.set(
-              Math.random() * 200 - 100,
-              Math.random() * 200 - 100,
-              Math.random() * 200 - 100
-            );
-            node.userData = {
-              materia: d.Materia,
-              connections: nodeConnections[d.Materia] || 1,
-            };
-            nodes.push(node);
-            scene.add(node);
-          });
+          // Creación de nodos tridimensionales para la simulación D3
+          const nodosD3 = data.map((d) => ({
+            id: d.Materia,
+            x: Math.random() * 200 - 100,
+            y: Math.random() * 200 - 100,
+            z: Math.random() * 400 - 200, // Añadimos el eje Z aleatoriamente
+            connections: nodeConnections[d.Materia] || 1,
+          }));
 
-          // Creación de enlaces
-          const links = [];
+          // Creación de enlaces de datos para D3
+          const d3Links = [];
           data.forEach((row) => {
             Object.keys(row).forEach((column) => {
               if (column.startsWith("Relación") && row[column]) {
-                links.push({
+                d3Links.push({
                   source: row.Materia,
                   target: row[column],
                 });
@@ -151,7 +147,7 @@
             });
           });
 
-          // Añadir etiquetas con D3 y mantenerlas orientadas hacia la cámara
+          // Añadir etiquetas con D3
           const svg = d3
             .select("body")
             .append("svg")
@@ -160,70 +156,84 @@
             .style("position", "absolute")
             .style("top", 0)
             .style("left", 0)
-            .style("pointer-events", "none"); 
+            .style("pointer-events", "none");
 
           const labels = svg
             .selectAll("text")
-            .data(nodes)
+            .data(nodosD3)
             .enter()
             .append("text")
             .attr("class", "label")
-            .text((d) => d.userData.materia || `Nodo`)
-            .attr(
-              "font-size",
-              (d) => `${Math.sqrt(d.userData.connections) * 10}px`
-            )
+            .text((d) => d.id)
+            .attr("font-size", (d) => `${8 + Math.min(d.connections, 32)}px`)
             .attr("fill", "black");
 
-          // Configurar simulación de fuerza
+          // Crear material para los enlaces
+          const linkMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+          const links = [];
+
+          // Crear enlaces 3D como líneas en Three.js
+          d3Links.forEach((link) => {
+            const sourceNode = nodosD3.find((n) => n.id === link.source);
+            const targetNode = nodosD3.find((n) => n.id === link.target);
+
+            if (sourceNode && targetNode) {
+              const linkGeometry = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(sourceNode.x, sourceNode.y, sourceNode.z),
+                new THREE.Vector3(targetNode.x, targetNode.y, targetNode.z),
+              ]);
+              const line = new THREE.Line(linkGeometry, linkMaterial);
+              scene.add(line);
+              links.push({ line, sourceNode, targetNode });
+            }
+          });
+
+          // Simulación de D3 en 3D
           const simulation = d3
-            .forceSimulation(nodes)
+            .forceSimulation(nodosD3)
             .force(
               "link",
               d3
-                .forceLink(links)
-                .id((d) => d.userData.materia)
+                .forceLink(d3Links)
+                .id((d) => d.id)
                 .distance(100)
             )
             .force("charge", d3.forceManyBody().strength(-200))
-            .force(
-              "center",
-              d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2)
-            );
+            .force("center", d3.forceCenter(0, 0))
+            .force("z", d3.forceManyBody().strength(-200)); // Añadimos fuerza para el eje Z
 
-          // Actualizar posiciones en cada tick de la simulación
+          // En cada tick, actualizar las posiciones en 3D
           simulation.on("tick", () => {
-            nodes.forEach((node) => {
-              node.position.x = node.x;
-              node.position.y = node.y;
-            });
-            updateLabels();
-          });
-
-          // Función para actualizar etiquetas
-          function updateLabels() {
             labels.each(function (d) {
-              const vector = new THREE.Vector3(
-                d.position.x,
-                d.position.y,
-                d.position.z
-              );
+              const vector = new THREE.Vector3(d.x, d.y, d.z);
               vector.project(camera);
               const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
               const y = (-vector.y * 0.5 + 0.5) * window.innerHeight;
               d3.select(this).attr("x", x).attr("y", y);
             });
-          }
 
-          // Función unificada de renderización de la escena y actualización de etiquetas
+            links.forEach((link) => {
+              const { sourceNode, targetNode, line } = link;
+              const positions = line.geometry.attributes.position.array;
+
+              // Actualizar posiciones del enlace en Three.js
+              positions[0] = sourceNode.x;
+              positions[1] = sourceNode.y;
+              positions[2] = sourceNode.z;
+              positions[3] = targetNode.x;
+              positions[4] = targetNode.y;
+              positions[5] = targetNode.z;
+
+              line.geometry.attributes.position.needsUpdate = true;
+            });
+          });
+
+          // Función de renderizado continuo
           function animate() {
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
-            updateLabels(); // Incluye la actualización de etiquetas dentro del ciclo de animación principal
           }
-
-          // Llamar solo a la función de animación principal
           animate();
 
           // Controles de fuerza y largo de enlaces
@@ -241,6 +251,31 @@
               const length = +this.value;
               simulation.force("link").distance(length);
               simulation.alpha(1).restart();
+            });
+
+          // Controlar el estado del checkbox para mostrar etiquetas o enlaces
+          document
+            .getElementById("toggleLabels")
+            .addEventListener("change", function () {
+              const showLabels = this.checked;
+
+              if (showLabels) {
+                // Mostrar solo las etiquetas, ocultar los enlaces
+                links.forEach((link) => {
+                  link.line.visible = false;
+                });
+                labels.attr("visibility", "visible");
+              } else {
+                // Mostrar los enlaces y ocultar las etiquetas
+                links.forEach((link) => {
+                  link.line.visible = true;
+                });
+                labels.attr("visibility", "hidden");
+              }
+
+              // Asegurarse de que la simulación y el renderizado continúen
+              simulation.alpha(1).restart(); // Reiniciar simulación
+              animate(); // Asegurarse de que la animación continúa
             });
 
           // Evento de redimensionado de ventana
