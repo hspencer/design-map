@@ -16,19 +16,39 @@
         display: block;
       }
       .controls {
+        display: flex;
+        flex-direction: column;
         position: absolute;
         bottom: 1em;
         left: 1em;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.73);
+        border-radius: 1ex;
         padding: 1em;
         z-index: 10;
+      }
+
+      label {
+        font-size: 12px;
+        font-weight: bold;
+        display: table-cell;
+        flex-flow: row;
+        vertical-align: middle;
+      }
+
+      input[type="range"] {
+        position: relative;
+        top: 7px;
+        margin-right: 9px;
       }
     </style>
   </head>
   <body>
     <div class="controls">
       <label>
-        <input type="checkbox" id="toggleLabels" /> Mostrar etiquetas
+        <input type="checkbox" id="toggleLabels" checked /> Mostrar etiquetas
+      </label>
+      <label>
+        <input type="checkbox" id="toggleLinks" checked /> Mostrar enlaces
       </label>
       <label>
         <input type="range" id="linkLength" min="10" max="300" value="100" />
@@ -73,9 +93,9 @@
             0.1,
             1000
           );
-          camera.position.set(0, 0, 300);
+          camera.position.set(0, 0, 400);
 
-          scene.fog = new THREE.Fog(0xffffff, 0, 800); // Nieble para efecto visual
+          scene.fog = new THREE.Fog(0xffffff, 50, 1200); // Nieble para efecto visual
 
           const renderer = new THREE.WebGLRenderer({ antialias: true });
           renderer.setSize(window.innerWidth, window.innerHeight);
@@ -125,6 +145,8 @@
             y: Math.random() * 200 - 100,
             z: Math.random() * 400 - 200,
             connections: nodeConnections[d.Materia] || 1,
+            escuela: d.Escuela, // Captura el valor de la columna Escuela (0 o 1)
+            color: d.Escuela === "1" ? 0x000000 : 0xdbc9a6, // Asigna el color inicial basado en Escuela
           }));
 
           // Creación de enlaces de datos para D3
@@ -166,30 +188,31 @@
           });
 
           // Cargar la fuente
+          // Acá hay más fuentes json: https://github.com/mrdoob/three.js/tree/master/examples/fonts
           const fontLoader = new FontLoader();
           fontLoader.load("font.json", (font) => {
             nodesD3.forEach((node) => {
               const textGeo = new TextGeometry(node.id, {
                 font: font,
-                size: 8 + Math.min(node.connections, 32),
-                height: 0.5,
+                size: 2 + Math.min(node.connections, 28),
+                height: 0.15,
               });
+
               const textMaterial = new THREE.MeshBasicMaterial({
-                color: 0x000000,
+                color: node.color,
               });
+
               const textMesh = new THREE.Mesh(textGeo, textMaterial);
+              textMesh.userData.originalColor = node.color; // Guardar el color original en userData
               textGeo.computeBoundingBox(); // Calcula el tamaño de la caja del texto
+              textGeo.center(); // Centra automáticamente el texto en X e Y
+
               const centerOffsetX =
                 (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x) / 2;
-              const centerOffsetY =
-                (textGeo.boundingBox.max.y - textGeo.boundingBox.min.y) / 2;
+              const offsetY = textGeo.boundingBox.min.y; // Ajuste para poner la base del texto en el nodo
 
               // Ajustar la posición del texto para centrarlo
-              textMesh.position.set(
-                node.x - centerOffsetX,
-                node.y - centerOffsetY,
-                node.z
-              );
+              textMesh.position.set(node.x, node.y, node.z);
               scene.add(textMesh);
               node.textMesh = textMesh;
             });
@@ -231,7 +254,6 @@
           });
 
           // Función de renderizado continuo
-          // Función de renderizado continuo
           function animate() {
             requestAnimationFrame(animate);
 
@@ -246,6 +268,80 @@
             renderer.render(scene, camera);
           }
           animate();
+
+          const raycaster = new THREE.Raycaster();
+          const mouse = new THREE.Vector2();
+
+          // Cambiar el color al pasar el ratón por encima
+          let currentIntersected = null;
+
+          function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(scene.children);
+
+            // Restaurar el color del nodo anterior si ya no está intersectado
+            if (
+              currentIntersected &&
+              !intersects.find((i) => i.object === currentIntersected)
+            ) {
+              currentIntersected.material.color.set(
+                currentIntersected.userData.originalColor
+              );
+              currentIntersected = null; // Resetear cuando ya no está bajo el mouse
+            }
+
+            // Recorrer las intersecciones y cambiar el color al rojo si es un TextGeometry
+            intersects.forEach((intersect) => {
+              if (intersect.object.geometry instanceof TextGeometry) {
+                if (currentIntersected !== intersect.object) {
+                  // Restaurar el color del nodo anterior
+                  if (currentIntersected) {
+                    currentIntersected.material.color.set(
+                      currentIntersected.userData.originalColor
+                    );
+                  }
+                  // Establecer el nodo actual y cambiar el color
+                  currentIntersected = intersect.object;
+                  currentIntersected.material.color.set(0xff0000); // Color rojo al pasar el mouse
+                }
+              }
+            });
+          }
+
+          window.addEventListener("mousemove", onMouseMove);
+
+          // Cambiar el centro de la simulación al hacer doble clic
+          function onDoubleClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(scene.children);
+
+            if (intersects.length > 0) {
+              const selectedText = intersects[0].object;
+
+              // Mover la cámara hacia el texto seleccionado
+              camera.position.set(
+                selectedText.position.x,
+                selectedText.position.y,
+                camera.position.z
+              );
+              controls.target.set(
+                selectedText.position.x,
+                selectedText.position.y,
+                selectedText.position.z
+              );
+              controls.update();
+            }
+          }
+
+          window.addEventListener("dblclick", onDoubleClick);
 
           // Controles de fuerza y largo de enlaces
           document
@@ -264,36 +360,35 @@
               simulation.alpha(1).restart(); // Reiniciar la simulación con la nueva distancia de enlaces
             });
 
-          // Controlar el estado del checkbox para mostrar etiquetas o enlaces
+          // Controlar el estado del checkbox para mostrar etiquetas
           document
             .getElementById("toggleLabels")
             .addEventListener("change", function () {
               const showLabels = this.checked;
 
-              if (showLabels) {
-                // Ocultar los enlaces y mostrar solo las etiquetas
-                links.forEach((link) => {
-                  link.line.visible = false;
-                });
-                scene.children.forEach((child) => {
-                  if (child.geometry instanceof TextGeometry) {
-                    child.visible = true; // Mostrar los textos
-                  }
-                });
-              } else {
-                // Mostrar los enlaces y ocultar las etiquetas
-                links.forEach((link) => {
-                  link.line.visible = true;
-                });
-                scene.children.forEach((child) => {
-                  if (child.geometry instanceof TextGeometry) {
-                    child.visible = false; // Ocultar los textos
-                  }
-                });
-              }
+              scene.children.forEach((child) => {
+                if (child.geometry instanceof TextGeometry) {
+                  child.visible = showLabels; // Mostrar u ocultar los textos
+                }
+              });
 
               // Asegurarse de que la simulación y el renderizado continúen
-              simulation.alpha(1).restart(); // Reiniciar simulación
+              //simulation.alpha(1).restart(); // Reiniciar simulación
+              animate(); // Continuar animación
+            });
+
+          // Controlar el estado del checkbox para mostrar enlaces
+          document
+            .getElementById("toggleLinks")
+            .addEventListener("change", function () {
+              const showLinks = this.checked;
+
+              links.forEach((link) => {
+                link.line.visible = showLinks; // Mostrar u ocultar los enlaces
+              });
+
+              // Asegurarse de que la simulación y el renderizado continúen
+              //simulation.alpha(1).restart(); // Reiniciar simulación
               animate(); // Continuar animación
             });
 
