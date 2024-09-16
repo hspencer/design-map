@@ -20,3 +20,8 @@ Los datos están estructurados en una [planilla compartida](https://docs.google.
 - La vista 3D permite orbitar, hacer _zoom_ y hacer _pan_.
 - _Rollover_ sobre una materia (cambia a rojo) y doble click la centra
 - Los temas en color café claro corresponden a aquellas materias que no se imparten en la Escuela
+
+
+### Variaciones
+- [01](/01/): versión 2D con nodos y tooltips y exportación de SVG
+- [02](/02/): versión 3D con nodos y tooltips

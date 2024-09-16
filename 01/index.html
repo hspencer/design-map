@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Visualización de Grafo</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: "Nunito", sans-serif;
+      background-color: #ffffff;
+    }
+
+    .link {
+      stroke: #00000066;
+      stroke-opacity: 0.6;
+    }
+
+    .node text {
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      padding: 6px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #333;
+      border-radius: 4px;
+      pointer-events: none;
+      display: none;
+      z-index: 1000;
+    }
+
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      display: block;
+      z-index: 1000;
+    }
+
+    .controls label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .controls input[type="range"] {
+      width: 150px;
+    }
+
+    #toggleControls, #exportGraph {
+      position: absolute;
+      top: 10px;
+      background: #ffffff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    #toggleControls {
+      right: 50px;
+    }
+
+    #exportGraph {
+      right: 10px;
+    }
+
+    #toggleControls img, #exportGraph img {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Botón para mostrar/ocultar controles -->
+  <button id="toggleControls">
+    <img src="https://img.icons8.com/material-rounded/24/000000/settings.png" alt="Controles">
+  </button>
+  <!-- Botón para exportar el grafo como SVG -->
+  <button id="exportGraph">
+    <img src="https://img.icons8.com/material-rounded/24/000000/download.png" alt="Exportar">
+  </button>
+  <!-- Controles para ajustar la visualización -->
+  <div class="controls">
+    <label>
+      <input type="checkbox" id="toggleNodes" /> Mostrar nodos
+    </label>
+    <label>
+      <input type="checkbox" id="toggleLinks" checked /> Mostrar enlaces
+    </label>
+    <label>
+      Fuerza de enlace
+      <input type="range" id="linkStrength" min="0" max="3" step="0.1" value="0.5" />
+    </label>
+    <label>
+      Distancia de enlace
+      <input type="range" id="linkDistance" min="0" max="200" step="1" value="50" />
+    </label>
+    <label>
+      Tamaño de tipografía
+      <input type="range" id="fontSize" min="8" max="36" step="0.5" value="13" />
+    </label>
+  </div>
+  <!-- Tooltip para mostrar información adicional -->
+  <div class="tooltip" id="tooltip"></div>
+  <!-- Contenedor SVG para el grafo -->
+  <svg></svg>
+  <!-- Incluir FileSaver.js para mejorar la compatibilidad de la descarga -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <!-- Incluir D3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    // Ajustar el SVG al tamaño de la ventana
+    const svg = d3.select("svg")
+      .attr("width", window.innerWidth)
+      .attr("height", window.innerHeight);
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Grupo para aplicar zoom y pan
+    const container = svg.append("g");
+
+    // Definir zoom y pan
+    svg.call(d3.zoom()
+      .scaleExtent([0.1, 10])
+      .on("zoom", function (event) {
+        container.attr("transform", event.transform);
+      }));
+
+    // Escuchar eventos de redimensionamiento de la ventana
+    window.addEventListener("resize", () => {
+      svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
+    });
+
+    // Mostrar y ocultar controles
+    const controls = document.querySelector('.controls');
+    const toggleControlsBtn = document.getElementById('toggleControls');
+
+    toggleControlsBtn.addEventListener('click', () => {
+      if (controls.style.display === 'none') {
+        controls.style.display = 'block';
+      } else {
+        controls.style.display = 'none';
+      }
+    });
+
+    // Cargar los datos desde el CSV
+    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRH7srxOeUb950beVHfXg6RckjZL1axbyHBfoR6oXbGhpdX2F2-1bUpN6a64LqmHd01QsHEH_c0Kawa/pub?gid=1339882215&single=true&output=csv").then(function(data) {
+
+      // Declaración de variables y funciones que se utilizarán
+      let simulation;
+      let baseFontSize = +document.getElementById("fontSize").value;
+      let updateNodes;
+      let link;
+      let node;
+
+      // Crear un mapa para almacenar los nodos por su ID y evitar duplicados
+      const nodeById = new Map();
+
+      // Crear un conjunto de materias principales con 'Escuela' = '1'
+      const materiasEscuela1 = new Set();
+      data.forEach(d => {
+        if (d.Escuela && d.Escuela.trim() === '1') {
+          materiasEscuela1.add(d.Materia.trim());
+        }
+      });
+
+      // Procesar los nodos y enlaces
+      const links = [];
+
+      data.forEach(d => {
+        const materiaName = d.Materia.trim();
+        const escuelaValue = d.Escuela ? d.Escuela.trim() : '0';
+
+        // Si el nodo no existe en el mapa, lo agregamos
+        if (!nodeById.has(materiaName)) {
+          const node = { id: materiaName, escuela: escuelaValue };
+          nodeById.set(materiaName, node);
+        } else {
+          // Actualizamos 'escuela' si es '1'
+          if (escuelaValue === '1') {
+            nodeById.get(materiaName).escuela = '1';
+          }
+        }
+
+        // Procesar las relaciones
+        Object.keys(d).forEach(key => {
+          if (key.startsWith('Relación') && d[key]) {
+            const targetName = d[key].trim();
+            // Si el nodo destino no existe, lo agregamos
+            if (!nodeById.has(targetName)) {
+              const targetNode = { id: targetName, escuela: materiasEscuela1.has(targetName) ? '1' : '0' };
+              nodeById.set(targetName, targetNode);
+            } else {
+              // Actualizamos 'escuela' si corresponde
+              if (materiasEscuela1.has(targetName)) {
+                nodeById.get(targetName).escuela = '1';
+              }
+            }
+            // Agregamos el enlace
+            links.push({ source: materiaName, target: targetName });
+          }
+        });
+      });
+
+      // Convertir el mapa de nodos a una lista
+      const nodes = Array.from(nodeById.values());
+
+      // Contar conexiones para cada nodo
+      nodes.forEach(node => {
+        node.connections = links.filter(l => l.source === node.id || l.target === node.id).length;
+      });
+
+      // Escala para tamaños de nodo basados en conexiones
+      const sizeScale = d3.scaleLinear()
+        .domain(d3.extent(nodes, d => d.connections))
+        .range([10, 30]);
+
+      // Definir la simulación de fuerzas
+      simulation = d3.forceSimulation(nodes)
+        .force("link", d3.forceLink(links)
+          .id(d => d.id)
+          .distance(+document.getElementById("linkDistance").value) // Distancia de enlace ajustable
+          .strength(+document.getElementById("linkStrength").value) // Fuerza de enlace ajustable
+        )
+        .force("charge", d3.forceManyBody().strength(-50)) // Fuerza de repulsión moderada
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collide", d3.forceCollide().radius(d => sizeScale(d.connections) + 5).iterations(1)) // Colisión basada en tamaño de nodo
+        .stop(); // Detenemos la simulación para controlarla manualmente
+
+      // Control manual de la simulación para mejorar rendimiento
+      for (let i = 0; i < 300; ++i) {
+        simulation.tick();
+      }
+
+      // Crear nodos
+      node = container.append("g")
+          .attr("class", "nodes")
+        .selectAll("g")
+        .data(nodes)
+        .join("g")
+          .call(drag(simulation));
+
+      // Dibujar enlaces
+      link = container.append("g")
+          .attr("class", "links")
+          .selectAll("line")
+          .data(links)
+          .join("line")
+          .attr("class", "link")
+          .attr("stroke-width", 1);
+
+      // Añadir círculos o etiquetas de texto
+      updateNodes = function() {
+        const showCircles = document.getElementById("toggleNodes").checked;
+
+        node.selectAll("*").remove(); // Limpiar contenido previo
+
+        if (showCircles) {
+          // Añadir círculos
+          node.append("circle")
+            .attr("r", d => sizeScale(d.connections)) // Tamaño basado en las conexiones
+            .attr("fill", d => d.escuela === "1" ? "#000000" : "#c1b589")
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut);
+        } else {
+          // Añadir etiquetas de texto
+          node.append("text")
+            .text(d => d.id)
+            .style("font-size", d => (sizeScale(d.connections) / 2 + baseFontSize) + "px") // Tamaño de texto basado en conexiones
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("text-anchor", "middle")
+            .attr("alignment-baseline", "middle")
+            .attr("fill", d => d.escuela === "1" ? "#000000" : "#c1b589");
+
+          // Calcular dimensiones del texto para colisiones
+          node.each(function(d) {
+            const bbox = this.querySelector('text').getBBox();
+            d.width = bbox.width;
+            d.height = bbox.height;
+          });
+
+          // Actualizar la fuerza de colisión para usar dimensiones de texto
+          simulation.force("collide", d3.forceCollide().radius(d => Math.max(d.width, d.height) / 2 + 5).iterations(1));
+        }
+
+        // Reiniciar la simulación con las nuevas fuerzas
+        simulation.alpha(0.5).restart();
+      };
+
+      updateNodes(); // Llamar inicialmente
+
+      // Actualizar posiciones en cada tick
+      simulation.on("tick", () => {
+        // Actualizar posiciones de enlaces
+        link
+          .attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y);
+
+        // Actualizar posiciones de nodos
+        node
+          .attr("transform", d => `translate(${d.x},${d.y})`);
+      });
+
+      // Funciones de arrastre
+      function drag(simulation) {
+        function dragstarted(event, d) {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+          d.fx = event.x;
+          d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+          if (!event.active) simulation.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+        }
+
+        return d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended);
+      }
+
+      // Tooltip
+      const tooltip = d3.select("#tooltip");
+
+      let hoverTimeout;
+
+      function handleMouseOver(event, d) {
+        d3.select(this).attr("stroke", "#ff0000").attr("stroke-width", 2);
+        hoverTimeout = setTimeout(() => {
+          tooltip.style("left", (event.pageX + 10) + "px")
+                 .style("top", (event.pageY + 10) + "px")
+                 .style("display", "inline-block")
+                 .html(d.id);
+        }, 200); // 0.2 segundos
+      }
+
+      function handleMouseOut(event, d) {
+        d3.select(this).attr("stroke", null);
+        clearTimeout(hoverTimeout);
+        tooltip.style("display", "none");
+      }
+
+      // Botón de exportación
+      document.getElementById("exportGraph").addEventListener("click", function () {
+        const svgCopy = svg.node().cloneNode(true);
+
+        svgCopy.querySelectorAll(".controls, #toggleControls, #exportGraph").forEach(el => el.remove());
+
+        const serializer = new XMLSerializer();
+        let source = serializer.serializeToString(svgCopy);
+
+        if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+          source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+          source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+        }
+
+        source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+        const blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+        saveAs(blob, "grafo.svg");
+      });
+
+      // Event listeners dentro de la función 'then', para que tengan acceso a 'simulation' y 'updateNodes'
+
+      // Actualizar fuerzas al cambiar los sliders
+      document.getElementById("linkStrength").addEventListener("input", function () {
+        simulation.force("link").strength(+this.value);
+        simulation.alpha(0.5).restart();
+      });
+
+      document.getElementById("linkDistance").addEventListener("input", function () {
+        simulation.force("link").distance(+this.value);
+        simulation.alpha(0.5).restart();
+      });
+
+      document.getElementById("fontSize").addEventListener("input", function () {
+        baseFontSize = +this.value;
+        updateNodes();
+      });
+
+      // Alternar entre nodos y etiquetas de texto
+      document.getElementById("toggleNodes").addEventListener("change", function () {
+        updateNodes();
+      });
+
+      // Alternar visibilidad de enlaces
+      document.getElementById("toggleLinks").addEventListener("change", function () {
+        const showLinks = this.checked;
+        link.style("display", showLinks ? "block" : "none");
+      });
+
+    }); // Fin de la función 'then'
+
+  </script>
+</body>
+</html>
